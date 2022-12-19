@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.hide()
+
         val accountFragment = AccountFragment()
         val newLobbyFragment = NewLobbyFragment()
         val searchFragment = SearchFragment()
