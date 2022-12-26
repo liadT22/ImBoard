@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val shopFragment = ShopFragment()
         val bottom_navigation = binding.bottomNavigation
 
+
         makeCurrentFragment(searchFragment)
         var currentFragment : Fragment = searchFragment
         var toFragment : Fragment
