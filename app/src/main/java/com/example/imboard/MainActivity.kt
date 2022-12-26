@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.example.imboard.databinding.ActivityMainBinding
 import com.example.imboard.fragments.AccountFragment
 import com.example.imboard.fragments.NewLobbyFragment
 import com.example.imboard.fragments.SearchFragment
 import com.example.imboard.fragments.ShopFragment
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.hide()
 
@@ -20,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val newLobbyFragment = NewLobbyFragment()
         val searchFragment = SearchFragment()
         val shopFragment = ShopFragment()
-        val bottom_navigation = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+        val bottom_navigation = binding.bottomNavigation
 
         makeCurrentFragment(searchFragment)
         var currentFragment : Fragment = searchFragment
