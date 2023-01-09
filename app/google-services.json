@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1033869798275",
+    "project_id": "imboard-8160e",
+    "storage_bucket": "imboard-8160e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033869798275:android:3a678d2b4fb97c520964b6",
+        "android_client_info": {
+          "package_name": "com.example.imboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033869798275-p8i5f043hivlqklkp3rh7804odu3vrpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.imboard",
+            "certificate_hash": "93131857ae0d9b68d4faab9c339a750247f810f8"
+          }
+        },
+        {
+          "client_id": "1033869798275-546p55bjch291qsto73uf574vhb57a90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBllZ--XnWi9o1UFD6R5RhKFqeuesOFuU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033869798275-546p55bjch291qsto73uf574vhb57a90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="< Back"
+        android:text="@string/back_text"
         android:textAllCaps="false"
         android:textColor="@color/teal_700" />
 
@@ -121,39 +121,39 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/lobby_icon_p1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="120dp"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
-            android:src="@mipmap/ic_launcher" />
+            android:background="@mipmap/ic_launcher"
+            />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/lobby_icon_p2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="120dp"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
-            android:src="@mipmap/ic_launcher" />
+            android:background="@mipmap/ic_launcher"
+             />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/lobby_icon_p3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="120dp"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
-            android:src="@mipmap/ic_launcher" />
+            android:background="@mipmap/ic_launcher"
+             />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/lobby_icon_p4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="120dp"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
-            android:src="@mipmap/ic_launcher" />
+             android:background="@mipmap/ic_launcher"
+            />
 
     </GridLayout>
 
