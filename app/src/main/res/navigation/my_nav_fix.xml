@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav_fix"
+    app:startDestination="@id/registerOrLoginScreenFragment">
+
+    <fragment
+        android:id="@+id/registerOrLoginScreenFragment"
+        android:name="com.example.imboard.fragments.RegisterOrLoginScreenFragment"
+        android:label="fragment_register_or_login_screen"
+        tools:layout="@layout/fragment_register_or_login_screen" >
+        <action
+            android:id="@+id/action_registerOrLoginScreenFragment_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.example.imboard.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.imboard.fragments.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.imboard.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.imboard.fragments.ShopFragment"
+        android:label="fragment_shop"
+        tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/newLobbyFragment"
+        android:name="com.example.imboard.fragments.NewLobbyFragment"
+        android:label="fragment_new_lobby"
+        tools:layout="@layout/fragment_new_lobby" />
+</navigation>
