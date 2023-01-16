@@ -1,39 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SearchFragment"
     android:orientation="vertical"
-    android:padding="25dp">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <EditText
-            android:textStyle="bold"
-            android:id="@+id/fav_text"
-            android:drawableLeft="@drawable/ic_baseline_stars_24"
-            android:textSize="25sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=" Favorite"/>
-
-
+    android:padding="15dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="15dp"
         android:id="@+id/fav_lobbies"
+        android:layout_weight="1"
         android:orientation="horizontal" />
 
-</LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp"
+        android:layout_weight="0.4"
         android:id="@+id/search_lobbies"
         android:orientation="horizontal" />
     <SearchView
@@ -45,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:queryHint="Search For Lobby"
         android:iconifiedByDefault="false"
-    />
+        />
 
 
-</RelativeLayout>
+</LinearLayout>
