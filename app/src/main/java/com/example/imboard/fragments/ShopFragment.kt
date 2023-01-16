@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentShopBinding
+import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
 
 class ShopFragment : Fragment() {
-    private var _binding : FragmentShopBinding? = null
-    private val binding get() = _binding!!
+    private var binding : FragmentShopBinding by autoCleared()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentShopBinding.inflate(inflater,container,false)
+        binding = FragmentShopBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -25,6 +25,5 @@ class ShopFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }
