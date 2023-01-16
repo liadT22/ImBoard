@@ -3,12 +3,13 @@ package com.example.imboard.model
 import android.location.Location
 import com.google.type.DateTime
 
-data class Lobby(val host: User,
-                 val currentPlayers : List<User>,
-                 val game: Game,
-                 val dateAndTime: DateTime,
-                 val location: Location,
-                 val inviteLink: String,
-                 val ageRestriction: Int,
-                 val lobbyName: String,
-                 val id: Int)
+data class Lobby(val id: String = "",
+                 val lobbyName: String = "",
+                 val game: Game = Game(),
+                 val host: User = User(),
+                 val currentPlayers : List<User>? = null,
+                 val dateAndTime: DateTime = DateTime.getDefaultInstance(),
+                 val location: Location? = null,
+                 val inviteLink: String = "",
+                 val ageRestriction: Int = 0,
+                 )
