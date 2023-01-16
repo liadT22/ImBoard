@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="< Back"
+        android:text="Back"
         android:textAllCaps="false"
         android:textColor="@color/teal_700" />
 
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
+            android:background="@color/white"
             android:src="@mipmap/ic_launcher" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
+            android:background="@color/white"
             android:src="@mipmap/ic_launcher" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
+            android:background="@color/white"
             android:src="@mipmap/ic_launcher" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:background=""
+            android:background="@color/white"
             android:src="@mipmap/ic_launcher" />
 
     </GridLayout>
