@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SearchFragment">
+    tools:context=".fragments.SearchFragment"
+    android:orientation="vertical"
+    android:padding="15dp">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="this is search frag"
-        android:gravity="center"/>
+        android:layout_marginTop="15dp"
+        android:id="@+id/fav_lobbies"
+        android:layout_weight="1"
+        android:orientation="horizontal" />
 
-</FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp"
+        android:layout_weight="0.4"
+        android:id="@+id/search_lobbies"
+        android:orientation="horizontal" />
+    <SearchView
+        android:id="@+id/search_box_lobby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_gray"
+        android:background="@drawable/search_box"
+        android:layout_alignParentBottom="true"
+        android:queryHint="Search For Lobby"
+        android:iconifiedByDefault="false"
+        />
+
+
+</LinearLayout>
