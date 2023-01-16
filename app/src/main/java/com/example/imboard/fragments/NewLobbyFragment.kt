@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentNewLobbyBinding
+import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
 
 class NewLobbyFragment : Fragment() {
-    private var _binding : FragmentNewLobbyBinding? = null
-    private val binding get() = _binding!!
+    private var binding : FragmentNewLobbyBinding by autoCleared()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNewLobbyBinding.inflate(inflater,container,false)
+        binding = FragmentNewLobbyBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -26,6 +26,5 @@ class NewLobbyFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }
