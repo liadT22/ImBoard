@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentNewLobbyBinding
-import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
+import com.example.imboard.util.autoCleared
 
 class NewLobbyFragment : Fragment() {
     private var binding : FragmentNewLobbyBinding by autoCleared()

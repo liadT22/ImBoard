@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentShopBinding
-import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
+import com.example.imboard.util.autoCleared
 
 class ShopFragment : Fragment() {
     private var binding : FragmentShopBinding by autoCleared()

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imboard.databinding.LobbyScreenBinding
-import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
+import com.example.imboard.util.autoCleared
 
 class LobbyScreenFragment : Fragment() {
     private var binding : LobbyScreenBinding by autoCleared()

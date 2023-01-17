@@ -1,6 +1,7 @@
 package com.example.imboard.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +26,8 @@ class RegisterOrLoginScreenFragment : Fragment() {
         binding = FragmentRegisterOrLoginScreenBinding.inflate(inflater,container,false)
         val bundle = arguments
 
-        binding.loginBtn.setOnClickListener {
-            var flag_user = bundle?.getBoolean("flag_userLogedin")
-            flag_user = false
+        binding.registerBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_registerFragment)
         }
         return binding.root
     }
@@ -39,4 +39,5 @@ class RegisterOrLoginScreenFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
     }
+
 }
