@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.imboard.MainActivity
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentRegisterScreenBinding
 import com.example.imboard.util.autoCleared
@@ -23,22 +25,25 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterScreenBinding.inflate(inflater, container, false)
 
         val builder = createThermsAlertDialog()
-        binding.regSubmitBtn.isClickable = false
+        binding.regSubmitBtn.isActivated = false
 
         //popup alertdialog of therms when press checkbox
         binding.regTacCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if(binding.regTacCheckBox.isChecked === true)
                 builder?.show()
             if(binding.regTacCheckBox.isChecked === true)
-                binding.regSubmitBtn.isClickable = true
-            else binding.regSubmitBtn.isClickable = false
+                binding.regSubmitBtn.isActivated = true
+            else binding.regSubmitBtn.isActivated = false
         }
 
         emailFocusListener()
         passwordFocusListener()
         nicknameFocusListener()
 
-        binding.regSubmitBtn.setOnClickListener { submitRegister() }
+        binding.regSubmitBtn.setOnClickListener {
+            submitRegister()
+
+        }
 
         return binding.root
     }
@@ -88,6 +93,8 @@ class RegisterFragment : Fragment() {
             message += "\n\nPassword: " + binding.regPasswordContainer.helperText
         if(binding.regNickContainer.helperText != null)
             message += "\n\nNickname: " + binding.regNickContainer.helperText
+        if(!binding.regTacCheckBox.isChecked)
+            message += "\n\nPlease check Terms and Conditions box"
 
         AlertDialog.Builder(context)
             .setTitle("Invalid Form")
@@ -115,6 +122,8 @@ class RegisterFragment : Fragment() {
                 binding.regNickContainer.helperText = getString(R.string.required)
             }
             .show()
+        findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_searchFragment)
+
     }
 
     private fun emailFocusListener()

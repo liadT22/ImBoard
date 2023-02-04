@@ -1,7 +1,9 @@
 package com.example.imboard
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -9,12 +11,15 @@ import androidx.fragment.app.Fragment
 import com.example.imboard.databinding.ActivityMainBinding
 import com.example.imboard.fragments.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Communicator {
     lateinit var binding: ActivityMainBinding
+    var flag_userLogedin = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         supportActionBar?.hide()
 
@@ -24,43 +29,57 @@ class MainActivity : AppCompatActivity() {
         val shopFragment = ShopFragment()
         val loginScreenFragment = RegisterOrLoginScreenFragment()
         val bottom_navigation = binding.bottomNavigation
-        //TODO : replace the false with if the user is loged in or not from the ROOM
-        var flag_userLogedin = false
-        val bundle = Bundle()
-        bundle.putBoolean("flag_userLogedin", flag_userLogedin)
+        var started = true
 
 
         //show first fragment
-        bottom_navigation.visibility = View.GONE
+        if (started) {
+            bottom_navigation.visibility = View.GONE
+            started = false
+        }
 
+        bottom_navigation.setOnNavigationItemSelectedListener {
 
-
-        if(flag_userLogedin == true) {
-            bottom_navigation.visibility = View.VISIBLE
-            makeCurrentFragment(searchFragment)
-            bottom_navigation.setOnNavigationItemSelectedListener {
-
-                when (it.itemId) {
-                    R.id.ic_search -> makeCurrentFragment(searchFragment)
-                    R.id.ic_addRoom -> makeCurrentFragment(newLobbyFragment)
-                    R.id.ic_account -> makeCurrentFragment(accountFragment)
-                    R.id.ic_shop -> makeCurrentFragment(shopFragment)
-                }
-                true
+            when (it.itemId) {
+                R.id.ic_search -> makeCurrentFragment(searchFragment)
+                R.id.ic_addRoom -> makeCurrentFragment(newLobbyFragment)
+                R.id.ic_account -> makeCurrentFragment(accountFragment)
+                R.id.ic_shop -> makeCurrentFragment(shopFragment)
             }
+            true
         }
     }
+
+    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
+        super.onTopResumedActivityChanged(isTopResumedActivity)
+        flag_userLogedin = true
+        //binding.bottomNavigation.visibility = View.VISIBLE
+    }
+
 
     private fun makeCurrentFragment(fragment: Fragment) =
 
         supportFragmentManager.beginTransaction().apply {
-            Log.i("fragment",fragment.toString())
+            Log.i("fragment", fragment.toString())
             //do slide to left/right
             setCustomAnimations(
                 R.anim.from_left,
                 R.anim.to_right
             )
-            replace(R.id.fragmentContainerView,fragment)
+            replace(R.id.fragmentContainerView, fragment)
             commit()
         }
+
+    override fun passDataCom(userFlag: Boolean) {
+        //TODO : replace the false with if the user is loged in or not from the ROOM
+        val bundle = Bundle()
+        bundle.putBoolean("flag_userLogedin", flag_userLogedin)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val loginScreenFragment = RegisterOrLoginScreenFragment()
+        loginScreenFragment.arguments = bundle
+
+        transaction.replace(R.id.fragmentContainerView, loginScreenFragment).commit()
+
+    }
 }
