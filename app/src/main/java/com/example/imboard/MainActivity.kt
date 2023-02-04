@@ -13,7 +13,6 @@ import com.example.imboard.fragments.*
 
 class MainActivity : AppCompatActivity(), Communicator {
     lateinit var binding: ActivityMainBinding
-    var flag_userLogedin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +51,6 @@ class MainActivity : AppCompatActivity(), Communicator {
 
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
         super.onTopResumedActivityChanged(isTopResumedActivity)
-        flag_userLogedin = true
         //binding.bottomNavigation.visibility = View.VISIBLE
     }
 
@@ -73,7 +71,6 @@ class MainActivity : AppCompatActivity(), Communicator {
     override fun passDataCom(userFlag: Boolean) {
         //TODO : replace the false with if the user is loged in or not from the ROOM
         val bundle = Bundle()
-        bundle.putBoolean("flag_userLogedin", flag_userLogedin)
 
         val transaction = this.supportFragmentManager.beginTransaction()
         val loginScreenFragment = RegisterOrLoginScreenFragment()
