@@ -45,6 +45,13 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login:"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email.etxt"
             app:helperText="Required"
@@ -90,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/login_btn"
-            android:text="Log In"
+            android:text="LogIn"
             android:textSize="20sp" />
 
         <Button
