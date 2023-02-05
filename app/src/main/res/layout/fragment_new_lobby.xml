@@ -19,12 +19,12 @@
         android:layout_width="match_parent"
         android:layout_marginTop="60dp"
         android:layout_height="wrap_content"
+        android:hint="Game name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <EditText
             android:clickable="true"
             android:layout_width="match_parent"
-            android:text="Game name "
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -35,11 +35,12 @@
         android:layout_width="match_parent"
         android:layout_marginTop="25dp"
         android:layout_height="wrap_content"
+        android:hint="Add Participates"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <EditText
             android:layout_width="match_parent"
-            android:text="Add Participates"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -51,10 +52,10 @@
         android:layout_marginTop="25dp"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Location"
         >
         <EditText
             android:layout_width="match_parent"
-            android:text="Location"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
