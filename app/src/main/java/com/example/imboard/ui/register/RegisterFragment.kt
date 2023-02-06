@@ -1,4 +1,4 @@
-package com.example.imboard.fragments
+package com.example.imboard.ui.register
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -6,17 +6,25 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.imboard.MainActivity
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentRegisterScreenBinding
+import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import il.co.syntax.myapplication.util.Resource
 
 
 class RegisterFragment : Fragment() {
 
     private var binding: FragmentRegisterScreenBinding by autoCleared()
+    private val viewModel: RegisterViewModel by viewModels(){
+        RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase())
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,10 +86,34 @@ class RegisterFragment : Fragment() {
         val validPassword = binding.regPasswordContainer.helperText == null
         val validNickname = binding.regNickContainer.helperText == null
 
-        if (validEmail && validPassword && validNickname && binding.regTacCheckBox.isChecked === true)
-            resetForm()
+        if (validEmail && validPassword && validNickname && binding.regTacCheckBox.isChecked === true) {
+            viewModel.createUser(binding.regNickEditTxt.text.toString(),
+            binding.regEmailEditTxt.text.toString(),
+            binding.regPasswordEditTxt.text.toString())
+        }
         else
             invalidForm()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.userRegistrationStatus.observe(viewLifecycleOwner){
+            when(it){
+                is Resource.Loading ->{
+                    binding.regSubmitBtn.isEnabled = false
+                    binding.registerProgress.isVisible = true
+                }
+                is Resource.Success -> {
+                    Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_searchFragment)
+                    requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
+                }
+                is Resource.Error -> {
+                    binding.registerProgress.isVisible = false
+                    binding.regSubmitBtn.isEnabled = true
+                }
+            }
+        }
     }
 
     private fun invalidForm()
@@ -122,7 +154,6 @@ class RegisterFragment : Fragment() {
                 binding.regNickContainer.helperText = getString(R.string.required)
             }
             .show()
-        findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_searchFragment)
 
     }
 

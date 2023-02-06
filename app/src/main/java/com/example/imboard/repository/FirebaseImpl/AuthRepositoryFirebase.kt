@@ -34,15 +34,15 @@ class AuthRepositoryFirebase : AuthRepository {
     override suspend fun createUser(
         userName: String,
         userEmail: String,
-        userPhone: String,
         userLoginPassword: String
-    ) {
+    ) :Resource<User> {
         return withContext(Dispatchers.IO){
             safeCall {
-                val registrationResult = firebaseAuth.createUserWithEmailAndPassword(userEmail, userLoginPassword)
+                val registrationResult =
+                    firebaseAuth.createUserWithEmailAndPassword(userEmail, userLoginPassword)
                     .await()
                 val userId = registrationResult.user?.uid!!
-                val newUser = User(userName, userEmail, userPhone)
+                val newUser = User(userName, userEmail)
                 val check = userRef.document(userId).set(newUser).await()
                 Resource.Success(newUser)
             }

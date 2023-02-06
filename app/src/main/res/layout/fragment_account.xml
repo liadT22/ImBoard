@@ -114,6 +114,20 @@
             android:textColor="@color/teal_700"
             android:textSize="14sp"
             />
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.AppCompat.Button.Borderless"
+            app:icon="@drawable/ic_baseline_logout_24"
+            android:textStyle="italic"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/sign_out_btn"
+            android:text="Log out"
+            android:textAllCaps="false"
+            android:gravity="center|start"
+            app:iconTint="@color/red"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            />
     </LinearLayout>
 
 </FrameLayout>

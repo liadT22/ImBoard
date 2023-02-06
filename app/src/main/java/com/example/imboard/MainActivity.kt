@@ -1,15 +1,13 @@
 package com.example.imboard
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.imboard.databinding.ActivityMainBinding
 import com.example.imboard.fragments.*
+import com.example.imboard.ui.login.RegisterOrLoginScreenFragment
 
 class MainActivity : AppCompatActivity(), Communicator {
     lateinit var binding: ActivityMainBinding

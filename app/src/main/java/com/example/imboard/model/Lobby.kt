@@ -9,7 +9,8 @@ data class Lobby(val id: String = "",
                  val host: User = User(),
                  val currentPlayers : List<User>? = null,
                  val dateAndTime: DateTime = DateTime.getDefaultInstance(),
-                 val location: Location? = null,
+                 val location: String = "",
                  val inviteLink: String = "",
-                 val ageRestriction: Int = 0,
+                 val haveTheGame : Boolean = false,
+                 val hostAtHome : Boolean = false
                  )
