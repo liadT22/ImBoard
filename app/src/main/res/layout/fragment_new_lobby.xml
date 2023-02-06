@@ -75,6 +75,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <TextView
+            android:clickable="true"
             android:gravity="center"
             android:layout_width="match_parent"
             android:text="Date"
@@ -91,6 +92,7 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <TextView
+            android:clickable="true"
             android:layout_width="match_parent"
             android:text="Time"
             android:gravity="center"
