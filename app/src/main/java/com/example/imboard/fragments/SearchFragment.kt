@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentSearchBinding
 import com.example.imboard.util.autoCleared
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SearchFragment : Fragment() {
     private var binding : FragmentSearchBinding by autoCleared()
@@ -16,6 +18,16 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater,container,false)
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener()
+        {
+
+            when (it.itemId) {
+                R.id.ic_account -> findNavController().navigate(R.id.action_searchFragment_to_accountFragment)
+                R.id.ic_addRoom -> findNavController().navigate(R.id.action_searchFragment_to_newLobbyFragment)
+                R.id.ic_shop -> findNavController().navigate(R.id.action_searchFragment_to_shopFragment)
+            }
+            true
+        }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

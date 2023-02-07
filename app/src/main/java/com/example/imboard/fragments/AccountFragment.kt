@@ -26,10 +26,19 @@ class AccountFragment : Fragment() {
         binding = FragmentAccountBinding.inflate(inflater, container, false)
         binding.signOutBtn.setOnClickListener {
             authRep.logout()
-            //TODO: Fix this shit plz
-            //val navController = Navigation.findNavController(binding.root)
-            //navController.navigate(R.id.action_accountFragment_to_registerOrLoginScreenFragment)
+            val navController = Navigation.findNavController(binding.root)
+            navController.navigate(R.id.action_accountFragment_to_registerOrLoginScreenFragment)
 
+        }
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener()
+        {
+
+            when (it.itemId) {
+                R.id.ic_search -> findNavController().navigate(R.id.action_accountFragment_to_searchFragment)
+                R.id.ic_addRoom -> findNavController().navigate(R.id.action_accountFragment_to_newLobbyFragment)
+                R.id.ic_shop -> findNavController().navigate(R.id.action_accountFragment_to_shopFragment)
+            }
+            true
         }
         return binding.root
     }

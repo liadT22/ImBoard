@@ -35,16 +35,16 @@ class MainActivity : AppCompatActivity(), Communicator {
             started = false
         }
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
-
-            when (it.itemId) {
-                R.id.ic_search -> makeCurrentFragment(searchFragment)
-                R.id.ic_addRoom -> makeCurrentFragment(newLobbyFragment)
-                R.id.ic_account -> makeCurrentFragment(accountFragment)
-                R.id.ic_shop -> makeCurrentFragment(shopFragment)
-            }
-            true
-        }
+//        bottom_navigation.setOnNavigationItemSelectedListener {
+//
+//            when (it.itemId) {
+//                R.id.ic_search -> makeCurrentFragment(searchFragment)
+//                R.id.ic_addRoom -> makeCurrentFragment(newLobbyFragment)
+//                R.id.ic_account -> makeCurrentFragment(accountFragment)
+//                R.id.ic_shop -> makeCurrentFragment(shopFragment)
+//            }
+//            true
+//        }
     }
 
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
