@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentSearchBinding
 import com.example.imboard.util.autoCleared
@@ -15,8 +14,6 @@ class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding by autoCleared()
 
     //Lobby class variables
-    private lateinit var lobbyRecyclerView: RecyclerView
-    private lateinit var lobbyList: ArrayList<Lobby>
     lateinit var lobbysImageId: Array<Int>
     lateinit var lobbysNames: Array<String>
     lateinit var maxPlayers: Array<Int>
@@ -32,6 +29,8 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
+
+        //TODO delete code when adding API logic
         lobbysImageId = arrayOf(
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
@@ -83,6 +82,8 @@ class SearchFragment : Fragment() {
             "03/10/23"
         )
         have_game = arrayOf(true, false, true, true, false, true, false, true, true, false)
+        //TODO delete code when adding API logic
+        //TODO Read from FireBase the first 10~ lobbys in the list
 //        lobbysImageId = //TODO add images from API
 //        lobbysNames = //TODO add images from API
 //        maxPlayers = //TODO add images from API
@@ -93,10 +94,13 @@ class SearchFragment : Fragment() {
 
         binding.searchLobbiesRecycler.adapter = LobbyAdapterFix(LobbyManager.Lobbys)
         binding.searchLobbiesRecycler.layoutManager = LinearLayoutManager(requireContext())
-        addLobbysFakeData()
+
+        addLobbysFakeData() //TODO delete code when adding API logic
+
         return binding.root
     }
 
+    //TODO delete code when adding API logic
     private fun addLobbysFakeData() {
         for (i in lobbysImageId.indices) {
             val lobby = Lobby(

@@ -13,7 +13,7 @@ class LobbyAdapterFix(val lobbys: List<Lobby>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(lobby: Lobby) {
-            binding.lobbyGameImage.setImageResource(lobby.lobby_image)
+            lobby.lobby_image?.let { binding.lobbyGameImage.setImageResource(it) }
             binding.lobbyName.text = lobby.lobby_name
             binding.lobbyPlayersCount.text = "Players: ${lobby.max_players} - ${lobby.min_players}"
             binding.lobbyLocation.text = lobby.location
@@ -22,7 +22,7 @@ class LobbyAdapterFix(val lobbys: List<Lobby>) :
 
             }
         fun haveGame(lobby: Lobby): Int {
-            if(lobby.have_game)
+            if(lobby.have_game == true)
                 return R.drawable.have_game
             else return R.drawable.dont_have
         }
