@@ -3,36 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SearchFragment"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="15dp"
+    tools:context=".fragments.SearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fav_lobbies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
-        android:id="@+id/fav_lobbies"
         android:layout_weight="1"
         android:orientation="horizontal" />
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_lobbies_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp"
         android:layout_weight="0.4"
-        android:id="@+id/search_lobbies"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        android:paddingTop="20dp" />
+
     <SearchView
         android:id="@+id/search_box_lobby"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/light_gray"
-        android:background="@drawable/search_box"
         android:layout_alignParentBottom="true"
-        android:queryHint="Search For Lobby"
+        android:background="@drawable/search_box"
+        android:backgroundTint="@color/light_gray"
         android:iconifiedByDefault="false"
-        />
+        android:queryHint="Search For Lobby" />
 
 
 </LinearLayout>

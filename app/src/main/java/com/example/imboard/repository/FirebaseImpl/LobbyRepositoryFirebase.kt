@@ -18,17 +18,16 @@ class LobbyRepositoryFirebase : LobbiesRepository{
 
     override suspend fun addLobby(
         lobbyName: String,
-        lobbyImage: Int,
         location: String,
         host: User,
         game: Game,
-        lobbyMaxPlayers: Int,
         date: String,
+        time :String,
         haveTheGame: Boolean
     ) = withContext(Dispatchers.IO){
             safeCall {
                 val lobbyId = taskRef.document().id
-                val lobby = Lobby(lobbyId,host,lobbyImage,lobbyName,game,lobbyMaxPlayers,0,location,date,haveTheGame)
+                val lobby = Lobby(lobbyId,host,lobbyName,game,location,date, time, haveTheGame)
                 val addition = taskRef.document(lobbyId).set(lobby).await()
                 Resource.Success(addition)
             }
