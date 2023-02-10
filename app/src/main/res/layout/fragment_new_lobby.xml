@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.NewLobbyFragment"
+    tools:context=".ui.new_lobby.NewLobbyFragment"
     android:orientation="vertical">
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="60dp"
         android:layout_height="wrap_content"
-        android:hint="Game name"
+        android:hint="Lobby Name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <EditText
@@ -28,7 +28,23 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:id="@+id/game_name"/>
+            android:id="@+id/lobby_name_new_lbby"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_height="wrap_content"
+        android:hint="Game Name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <EditText
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/game_name_new_lobby"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -44,7 +60,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:id="@+id/add_participates"/>
+            android:id="@+id/add_participates_new_lbby"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +75,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:id="@+id/location_btn"/>
+            android:id="@+id/location_new_lobby"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -103,20 +119,51 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Have The Game"
+                android:id="@+id/checkbox_have_game"/>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="15dp"
-       android:text="Have The Game"
-       android:id="@+id/checkbox_have_game"/>
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Host At Home"
+                android:id="@+id/checkbox_home_host"/>
 
-   <com.google.android.material.checkbox.MaterialCheckBox
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="15dp"
-       android:text="Host At Home"
-       android:id="@+id/checkbox_home_host"/>
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/new_lobby_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="50dp"
+            android:visibility="gone"
+/>
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Create"
+        android:layout_marginTop="10dp"
+        android:id="@+id/create_button_new_lobby"/>
 
 
 </LinearLayout>

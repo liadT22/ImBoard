@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/newLobbyFragment"
-        android:name="com.example.imboard.fragments.NewLobbyFragment"
+        android:name="com.example.imboard.ui.new_lobby.NewLobbyFragment"
         android:label="fragment_new_lobby"
         tools:layout="@layout/fragment_new_lobby" >
         <action
