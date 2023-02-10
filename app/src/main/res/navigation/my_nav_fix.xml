@@ -43,6 +43,7 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
+<<<<<<< HEAD
             android:id="@+id/action_searchFragment_to_newLobbyFragment"
             app:destination="@id/newLobbyFragment"
             app:enterAnim="@anim/from_right"
@@ -63,6 +64,11 @@
             app:exitAnim="@anim/to_left"
             app:popUpTo="@id/my_nav_fix"
             app:popUpToInclusive="true"/>
+=======
+            android:id="@+id/action_searchFragment_to_lobbyScreenFragment"
+            app:destination="@id/lobbyScreenFragment"
+            app:popUpToInclusive="true" />
+>>>>>>> lobby-recycler
     </fragment>
     <fragment
         android:id="@+id/shopFragment"
@@ -144,5 +150,10 @@
             app:popUpTo="@id/my_nav_fix"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/lobbyScreenFragment"
+        android:name="com.example.imboard.fragments.LobbyScreenFragment"
+        android:label="lobby_screen"
+        tools:layout="@layout/lobby_screen" />
 
 </navigation>
