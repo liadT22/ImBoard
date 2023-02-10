@@ -5,11 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-<<<<<<< HEAD
 import androidx.navigation.fragment.findNavController
-=======
 import androidx.recyclerview.widget.ItemTouchHelper
->>>>>>> lobby-recycler
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imboard.R
@@ -112,7 +109,7 @@ class SearchFragment : Fragment() {
         //keep this code
         binding.searchLobbiesRecycler.adapter = LobbyAdapterFix(LobbyManager.Lobbys,object : LobbyAdapterFix.LobbyListener{
             override fun onLobbyClicked(index: Int) {
-                TODO("add lobby fragment")
+                findNavController().navigate(R.id.action_searchFragment_to_lobbyScreenFragment)
             }
         })
         binding.searchLobbiesRecycler.layoutManager = LinearLayoutManager(requireContext())

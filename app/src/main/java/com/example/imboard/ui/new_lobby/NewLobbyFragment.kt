@@ -23,7 +23,6 @@ import com.google.type.DateTime
 import il.co.syntax.myapplication.util.Resource
 import java.sql.Time
 import java.util.Calendar
-import kotlin.math.min
 
 class NewLobbyFragment : Fragment() {
     private var binding : FragmentNewLobbyBinding by autoCleared()
