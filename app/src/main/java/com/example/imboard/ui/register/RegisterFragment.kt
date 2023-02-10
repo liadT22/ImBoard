@@ -1,12 +1,17 @@
 package com.example.imboard.ui.register
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,12 +21,29 @@ import com.example.imboard.databinding.FragmentRegisterScreenBinding
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.storage.FirebaseStorage
 import il.co.syntax.myapplication.util.Resource
+import java.util.*
 
 
 class RegisterFragment : Fragment() {
 
+    private val storage = FirebaseStorage.getInstance()
+    private val storageReference = storage.reference
+    private val fileReference = storageReference.child("images/" + UUID.randomUUID().toString())
+
     private var binding: FragmentRegisterScreenBinding by autoCleared()
+    private var imageUri: Uri? = null
+    private val pickImageResultLauncher : ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()){
+            if (it != null) {
+                binding.regProfilePhoto.setImageURI(it)
+                requireActivity().contentResolver.takePersistableUriPermission(it,Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                imageUri = it
+            }
+
+        }
+
     private val viewModel: RegisterViewModel by viewModels(){
         RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase())
     }
@@ -52,8 +74,15 @@ class RegisterFragment : Fragment() {
             submitRegister()
 
         }
+        binding.regProfilePhotoBtn.setOnClickListener{
+            selectPhoto()
+        }
 
         return binding.root
+    }
+
+    private fun selectPhoto() {
+        pickImageResultLauncher.launch(arrayOf("image/*"))
     }
 
     fun userChoice(choice: String?) {
@@ -86,10 +115,12 @@ class RegisterFragment : Fragment() {
         val validPassword = binding.regPasswordContainer.helperText == null
         val validNickname = binding.regNickContainer.helperText == null
 
-        if (validEmail && validPassword && validNickname && binding.regTacCheckBox.isChecked === true) {
+        if (validEmail && validPassword && validNickname && binding.regTacCheckBox.isChecked == true) {
             viewModel.createUser(binding.regNickEditTxt.text.toString(),
             binding.regEmailEditTxt.text.toString(),
-            binding.regPasswordEditTxt.text.toString())
+            binding.regPasswordEditTxt.text.toString(),
+                imageUri)
+            uploadPhotoToFireBase(imageUri)
         }
         else
             invalidForm()
@@ -112,6 +143,20 @@ class RegisterFragment : Fragment() {
                     binding.registerProgress.isVisible = false
                     binding.regSubmitBtn.isEnabled = true
                 }
+            }
+        }
+    }
+    private fun uploadPhotoToFireBase(imageUri: Uri?) {
+        val uploadTask = imageUri?.let { fileReference.putFile(it) }
+        if (uploadTask != null) {
+            uploadTask.addOnFailureListener {
+                Toast.makeText(context, "Upload failed!", Toast.LENGTH_SHORT).show()
+            }.addOnSuccessListener {
+                Toast.makeText(context, "Upload succeeded!", Toast.LENGTH_SHORT).show()
+                fileReference.downloadUrl.addOnSuccessListener {
+                    // Do something with the download URL
+                }
+
             }
         }
     }

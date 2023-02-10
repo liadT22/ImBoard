@@ -1,33 +1,46 @@
 package com.example.imboard.ui.register
 
+import android.net.Uri
 import android.util.Patterns
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
+import com.google.firebase.storage.FirebaseStorage
 import il.co.syntax.myapplication.util.Resource
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class RegisterViewModel(private val repository: AuthRepository): ViewModel() {
+
     private val _userRegistrationStatus = MutableLiveData<Resource<User>>()
     val userRegistrationStatus: LiveData<Resource<User>> = _userRegistrationStatus
 
-    fun createUser(userName : String, userEmail: String, userPass: String){
-        val error = if(userEmail.isEmpty() || userName.isEmpty() || userPass.isEmpty()){
+    fun createUser(
+        userName: String,
+        userEmail: String,
+        userPass: String,
+        imageUri: Uri?
+    ) {
+        val error = if (userEmail.isEmpty() || userName.isEmpty() || userPass.isEmpty()) {
             "Empty strings"
-        }else if(!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
             "Not a valid email"
-        }
-        else null
-        error?.let{
+        } else null
+        error?.let {
             _userRegistrationStatus.postValue(Resource.Error(it))
         }
         _userRegistrationStatus.value = Resource.Loading()
         viewModelScope.launch {
-            val registrationResult = repository.createUser(userName, userEmail, userPass)
+            val registrationResult = repository.createUser(userName, userEmail, userPass,imageUri)
             _userRegistrationStatus.postValue(registrationResult)
         }
+
+
     }
+
+
 
     class RegisterViewModelFactory(private val repository: AuthRepository) : ViewModelProvider.NewInstanceFactory(){
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

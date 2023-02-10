@@ -1,8 +1,12 @@
 package com.example.imboard.repository.FirebaseImpl
 
+import android.net.Uri
 import com.example.imboard.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import il.co.syntax.myapplication.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -10,6 +14,7 @@ import kotlinx.coroutines.withContext
 import safeCall
 
 class AuthRepositoryFirebase : AuthRepository {
+
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val userRef = FirebaseFirestore.getInstance().collection("users")
     override suspend fun currentUser(): Resource<User> {
@@ -34,8 +39,9 @@ class AuthRepositoryFirebase : AuthRepository {
     override suspend fun createUser(
         userName: String,
         userEmail: String,
-        userLoginPassword: String
-    ) :Resource<User> {
+        userLoginPassword: String,
+        imageUri: Uri?
+    ): Resource<User> {
         return withContext(Dispatchers.IO){
             safeCall {
                 val registrationResult =
