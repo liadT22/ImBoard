@@ -12,4 +12,5 @@ data class Lobby(val lobby_id:String? = "",
                  val lobby_current_players: Int? = 0,
                  val lobby_location: String? = "",
                  val lobby_date: String? = "",
+                 val lobby_time: String? = "",
                  val lobby_have_game: Boolean? = false)
