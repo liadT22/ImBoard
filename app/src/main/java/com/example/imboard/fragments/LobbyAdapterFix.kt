@@ -1,16 +1,32 @@
 package com.example.imboard.fragments
 
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper.Callback
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imboard.R
 import com.example.imboard.databinding.LobbyRecyclerViewBinding
 
-class LobbyAdapterFix(val lobbys: List<Lobby>) :
+class LobbyAdapterFix(val lobbys: List<Lobby>,val callBack: LobbyListener) :
     RecyclerView.Adapter<LobbyAdapterFix.LobbyViewHolder>() {
 
-    class LobbyViewHolder(private val binding: LobbyRecyclerViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    interface LobbyListener{
+        fun onLobbyClicked(index:Int)
+    }
+
+    inner class LobbyViewHolder(private val binding: LobbyRecyclerViewBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        init{
+            binding.root.setOnClickListener(this)
+
+        }
+
+        override fun onClick(v: View?) {
+            callBack.onLobbyClicked(adapterPosition)
+        }
 
         fun bind(lobby: Lobby) {
             lobby.lobby_image?.let { binding.lobbyGameImage.setImageResource(it) }

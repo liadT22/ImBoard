@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentSearchBinding
 import com.example.imboard.util.autoCleared
@@ -91,13 +93,45 @@ class SearchFragment : Fragment() {
 //        locations =//TODO add images from API
 //        dates = //TODO add images from API
 //        have_game = //TODO add images from API
-
-        binding.searchLobbiesRecycler.adapter = LobbyAdapterFix(LobbyManager.Lobbys)
+        //keep this code
+        binding.searchLobbiesRecycler.adapter = LobbyAdapterFix(LobbyManager.Lobbys,object : LobbyAdapterFix.LobbyListener{
+            override fun onLobbyClicked(index: Int) {
+                TODO("add lobby fragment")
+            }
+        })
         binding.searchLobbiesRecycler.layoutManager = LinearLayoutManager(requireContext())
+        addMovementToRecycler()
+
 
         addLobbysFakeData() //TODO delete code when adding API logic
 
+
         return binding.root
+    }
+
+    private fun addMovementToRecycler() {
+        ItemTouchHelper(object : ItemTouchHelper.Callback(){
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ): Int {
+                TODO("Not yet implemented")
+            }
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+                //UPDATE all lobbys (refresh) binding.searchLobbiesRecycler.adapter!!.notifyDataSetChanged(viewHolder.adapterPosition)
+                //UPDATE if we delete binding.searchLobbiesRecycler.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                TODO("Not yet implemented")
+            }
+        }).attachToRecyclerView(binding.searchLobbiesRecycler)
     }
 
     //TODO delete code when adding API logic
