@@ -3,10 +3,8 @@ package com.example.imboard.ui.new_lobby
 import androidx.lifecycle.*
 import com.example.imboard.model.Game
 import com.example.imboard.model.Lobby
-import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
 import com.example.imboard.repository.FirebaseImpl.LobbiesRepository
-import com.google.type.DateTime
 import il.co.syntax.myapplication.util.Resource
 import kotlinx.coroutines.launch
 
@@ -29,7 +27,7 @@ class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: Lobbi
                 _addLobbyStatus.postValue(Resource.Loading())
                 _addLobbyStatus.postValue(authRep.currentUser().data?.let {
                     lobbyRep.addLobby(lobbyName, game.image, location,
-                        it, game, game.MaxPlayerCount,date, time, haveTheGame)
+                        it, game,date, time, haveTheGame)
                 })
             }
         }
