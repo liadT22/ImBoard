@@ -5,7 +5,6 @@ import com.google.type.DateTime
 
 data class Lobby(val lobby_id:String? = "",
                  val host :User = User(),
-                 val lobby_image: Int? = 0,
                  val lobby_name: String? = "",
                  val game: Game = Game(),
                  val lobby_location: String? = "",

@@ -26,7 +26,7 @@ class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: Lobbi
             else{
                 _addLobbyStatus.postValue(Resource.Loading())
                 _addLobbyStatus.postValue(authRep.currentUser().data?.let {
-                    lobbyRep.addLobby(lobbyName, game.image, location,
+                    lobbyRep.addLobby(lobbyName, location,
                         it, game,date, time, haveTheGame)
                 })
             }
