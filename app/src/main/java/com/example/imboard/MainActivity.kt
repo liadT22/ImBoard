@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.imboard.databinding.ActivityMainBinding
 import com.example.imboard.fragments.*
 import com.example.imboard.ui.login.RegisterOrLoginScreenFragment
+import com.example.imboard.ui.new_lobby.NewLobbyFragment
 
 class MainActivity : AppCompatActivity(), Communicator {
     lateinit var binding: ActivityMainBinding
