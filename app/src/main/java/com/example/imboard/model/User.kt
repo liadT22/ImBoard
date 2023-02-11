@@ -7,7 +7,8 @@ import java.net.URI
 
 data class User(val name:String ="",
                 val email:String="",
+                val uri: Uri? = null,
                 val games: List<Game>? = null,
                 val lobbies: List<Lobby>? = null,
-                val id: String = "",
-                val uri: Uri? = null)
+                val id: String = ""
+)

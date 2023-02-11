@@ -1,133 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.AccountFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:padding="20dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Account"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_library_add_check_24"
-            android:layout_height="match_parent"
+            android:textColor="@color/teal_700"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/account_profile_card_view"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="15dp">
+
+
+            <LinearLayout
+                android:id="@+id/account_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center|start"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/account_profile_photo"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/account_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:gravity="center"
+                        android:text="Username"
+                        android:textColor="@color/teal_700"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/account_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:gravity="center"
+                        android:text="email@gmail.com"
+                        android:textColor="@color/teal_700"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/account_change_photo_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="Change Photo"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/my_games_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
             android:text="My Games"
             android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/teal_700"
             android:textColor="@color/teal_700"
             android:textSize="14sp"
-        />
+            app:icon="@drawable/ic_baseline_library_add_check_24"
+            app:iconTint="@color/teal_700" />
+
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_people_24"
-            android:layout_height="match_parent"
             android:id="@+id/friends_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
             android:text="Friends"
             android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/teal_700"
             android:textColor="@color/teal_700"
             android:textSize="14sp"
-            />
+            app:icon="@drawable/ic_baseline_people_24"
+            app:iconTint="@color/teal_700" />
+
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_manage_accounts_24"
-            android:layout_height="match_parent"
             android:id="@+id/profile_setting_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
             android:text="Profile Settings"
             android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/teal_700"
             android:textColor="@color/teal_700"
             android:textSize="14sp"
-            />
+            app:icon="@drawable/ic_baseline_manage_accounts_24"
+            app:iconTint="@color/teal_700" />
+
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_history_24"
-            android:id="@+id/history_btn"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:text="History"
-            android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/teal_700"
-            android:textColor="@color/teal_700"
-            android:textSize="14sp"
-            />
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_stars_24"
-            android:layout_height="match_parent"
-            android:id="@+id/achievements_btn"
-            android:layout_width="match_parent"
-            android:text="Achievements"
-            android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/teal_700"
-            android:textColor="@color/teal_700"
-            android:textSize="14sp"
-            />
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_settings_24"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
             android:id="@+id/setting_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center|start"
             android:text="Setting"
             android:textAllCaps="false"
-            app:iconTint="@color/teal_700"
             android:textColor="@color/teal_700"
             android:textSize="14sp"
-            />
+            app:icon="@drawable/ic_baseline_settings_24"
+            app:iconTint="@color/teal_700" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="About"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textColor="@color/teal_700"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_chat_24"
-            android:textStyle="italic"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
             android:id="@+id/terms_and_condition_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
             android:text="Terms and Conditions"
             android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/teal_700"
             android:textColor="@color/teal_700"
             android:textSize="14sp"
-            />
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            app:icon="@drawable/ic_baseline_logout_24"
             android:textStyle="italic"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
+            app:icon="@drawable/ic_baseline_chat_24"
+            app:iconTint="@color/teal_700" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/sign_out_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
             android:text="Log out"
             android:textAllCaps="false"
-            android:gravity="center|start"
-            app:iconTint="@color/red"
             android:textColor="@color/red"
             android:textSize="14sp"
-            />
+            android:textStyle="italic"
+            app:icon="@drawable/ic_baseline_logout_24"
+            app:iconTint="@color/red" />
     </LinearLayout>
 
 </FrameLayout>

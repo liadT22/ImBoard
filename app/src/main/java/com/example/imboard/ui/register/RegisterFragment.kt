@@ -1,7 +1,6 @@
 package com.example.imboard.ui.register
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,8 +20,12 @@ import com.example.imboard.databinding.FragmentRegisterScreenBinding
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import il.co.syntax.myapplication.util.Resource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -34,19 +37,23 @@ class RegisterFragment : Fragment() {
 
     private var binding: FragmentRegisterScreenBinding by autoCleared()
     private var imageUri: Uri? = null
-    private val pickImageResultLauncher : ActivityResultLauncher<Array<String>> =
-        registerForActivityResult(ActivityResultContracts.OpenDocument()){
+    private val pickImageResultLauncher: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             if (it != null) {
                 binding.regProfilePhoto.setImageURI(it)
-                requireActivity().contentResolver.takePersistableUriPermission(it,Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                requireActivity().contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
                 imageUri = it
             }
 
         }
 
-    private val viewModel: RegisterViewModel by viewModels(){
+    private val viewModel: RegisterViewModel by viewModels() {
         RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase())
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,9 +66,9 @@ class RegisterFragment : Fragment() {
 
         //popup alertdialog of therms when press checkbox
         binding.regTacCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(binding.regTacCheckBox.isChecked === true)
+            if (binding.regTacCheckBox.isChecked === true)
                 builder?.show()
-            if(binding.regTacCheckBox.isChecked === true)
+            if (binding.regTacCheckBox.isChecked === true)
                 binding.regSubmitBtn.isActivated = true
             else binding.regSubmitBtn.isActivated = false
         }
@@ -74,7 +81,7 @@ class RegisterFragment : Fragment() {
             submitRegister()
 
         }
-        binding.regProfilePhotoBtn.setOnClickListener{
+        binding.regProfilePhotoBtn.setOnClickListener {
             selectPhoto()
         }
 
@@ -105,8 +112,7 @@ class RegisterFragment : Fragment() {
             }
     }
 
-    private fun submitRegister()
-    {
+    private fun submitRegister() {
         binding.regEmailContainer.helperText = validEmail()
         binding.regPasswordContainer.helperText = validPassword()
         binding.regNickContainer.helperText = validNickname()
@@ -116,28 +122,35 @@ class RegisterFragment : Fragment() {
         val validNickname = binding.regNickContainer.helperText == null
 
         if (validEmail && validPassword && validNickname && binding.regTacCheckBox.isChecked == true) {
-            viewModel.createUser(binding.regNickEditTxt.text.toString(),
-            binding.regEmailEditTxt.text.toString(),
-            binding.regPasswordEditTxt.text.toString(),
-                imageUri)
-            uploadPhotoToFireBase(imageUri)
-        }
-        else
+            GlobalScope.launch(Dispatchers.Main) {
+
+                viewModel.createUser(
+                    binding.regNickEditTxt.text.toString(),
+                    binding.regEmailEditTxt.text.toString(),
+                    binding.regPasswordEditTxt.text.toString(),
+                    imageUri
+                )
+//                val userID = FirebaseAuth.getInstance().currentUser?.uid
+//                uploadPhotoToFireBase(imageUri, userID)
+            }
+        } else
             invalidForm()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.userRegistrationStatus.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+        viewModel.userRegistrationStatus.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
                     binding.regSubmitBtn.isEnabled = false
                     binding.registerProgress.isVisible = true
                 }
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT)
+                        .show()
                     findNavController().navigate(R.id.action_registerFragment_to_searchFragment)
-                    requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
+                    requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
+                        View.VISIBLE
                 }
                 is Resource.Error -> {
                     binding.registerProgress.isVisible = false
@@ -146,50 +159,46 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-    private fun uploadPhotoToFireBase(imageUri: Uri?) {
-        val uploadTask = imageUri?.let { fileReference.putFile(it) }
-        if (uploadTask != null) {
-            uploadTask.addOnFailureListener {
-                Toast.makeText(context, "Upload failed!", Toast.LENGTH_SHORT).show()
-            }.addOnSuccessListener {
-                Toast.makeText(context, "Upload succeeded!", Toast.LENGTH_SHORT).show()
-                fileReference.downloadUrl.addOnSuccessListener {
-                    // Do something with the download URL
-                }
 
-            }
-        }
-    }
+//    private fun uploadPhotoToFireBase(imageUri: Uri?, userId: String?) {
+//        val fileReference = FirebaseStorage.getInstance().reference.child("images/$userId")
+//        val uploadTask = imageUri?.let { fileReference.putFile(it) }
+//        if (uploadTask != null) {
+//            uploadTask.addOnFailureListener {
+//                Toast.makeText(context, "Upload failed!", Toast.LENGTH_SHORT).show()
+//            }.addOnSuccessListener {
+//                Toast.makeText(context, "Upload succeeded!", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
 
-    private fun invalidForm()
-    {
+    private fun invalidForm() {
         var message = ""
-        if(binding.regEmailContainer.helperText != null)
+        if (binding.regEmailContainer.helperText != null)
             message += "\n\nEmail: " + binding.regEmailContainer.helperText
-        if(binding.regPasswordContainer.helperText != null)
+        if (binding.regPasswordContainer.helperText != null)
             message += "\n\nPassword: " + binding.regPasswordContainer.helperText
-        if(binding.regNickContainer.helperText != null)
+        if (binding.regNickContainer.helperText != null)
             message += "\n\nNickname: " + binding.regNickContainer.helperText
-        if(!binding.regTacCheckBox.isChecked)
+        if (!binding.regTacCheckBox.isChecked)
             message += "\n\nPlease check Terms and Conditions box"
 
         AlertDialog.Builder(context)
             .setTitle("Invalid Form")
             .setMessage(message)
-            .setPositiveButton("Okay"){ _,_ ->
+            .setPositiveButton("Okay") { _, _ ->
                 // do nothing
             }
             .show()
     }
 
-    private fun resetForm()
-    {
+    private fun resetForm() {
         var message = "Email: " + binding.regEmailEditTxt.text
         message += "\nPassword: " + binding.regPasswordEditTxt.text
         AlertDialog.Builder(context)
             .setTitle("Form submitted")
             .setMessage(message)
-            .setPositiveButton("Okay"){ _,_ ->
+            .setPositiveButton("Okay") { _, _ ->
                 binding.regEmailEditTxt.text = null
                 binding.regPasswordEditTxt.text = null
                 binding.regNickEditTxt.text = null
@@ -202,64 +211,54 @@ class RegisterFragment : Fragment() {
 
     }
 
-    private fun emailFocusListener()
-    {
+    private fun emailFocusListener() {
         binding.regEmailEditTxt.setOnFocusChangeListener { _, focused ->
-            if(!focused)
-            {
+            if (!focused) {
                 binding.regEmailContainer.helperText = validEmail()
             }
         }
     }
-    private fun nicknameFocusListener(){
+
+    private fun nicknameFocusListener() {
         binding.regNickEditTxt.setOnFocusChangeListener { _, focused ->
-            if(!focused)
-            {
+            if (!focused) {
                 binding.regNickContainer.helperText = validNickname()
             }
         }
     }
-    private fun validNickname(): String?
-    {
+
+    private fun validNickname(): String? {
         val nickname = binding.regNickEditTxt.text.toString()
-        if(nickname.length < 3)
+        if (nickname.length < 3)
             return "Minimum 3 Character Nickname"
         return null
     }
 
-    private fun validEmail(): String?
-    {
+    private fun validEmail(): String? {
         val emailText = binding.regEmailEditTxt.text.toString()
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailText).matches())
-        {
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
             return "Invalid Email Address"
         }
         return null
     }
 
-    private fun passwordFocusListener()
-    {
+    private fun passwordFocusListener() {
         binding.regPasswordEditTxt.setOnFocusChangeListener { _, focused ->
-            if(!focused)
-            {
+            if (!focused) {
                 binding.regPasswordContainer.helperText = validPassword()
             }
         }
     }
 
-    private fun validPassword(): String?
-    {
+    private fun validPassword(): String? {
         val passwordText = binding.regPasswordEditTxt.text.toString()
-        if(passwordText.length < 8)
-        {
+        if (passwordText.length < 8) {
             return "Minimum 8 Character Password"
         }
-        if(!passwordText.matches(".*[A-Z].*".toRegex()))
-        {
+        if (!passwordText.matches(".*[A-Z].*".toRegex())) {
             return "Must Contain 1 Upper-case Character"
         }
-        if(!passwordText.matches(".*[a-z].*".toRegex()))
-        {
+        if (!passwordText.matches(".*[a-z].*".toRegex())) {
             return "Must Contain 1 Lower-case Character"
         }
 

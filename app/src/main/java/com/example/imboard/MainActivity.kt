@@ -21,11 +21,6 @@ class MainActivity : AppCompatActivity(), Communicator {
 
         supportActionBar?.hide()
 
-        val accountFragment = AccountFragment()
-        val newLobbyFragment = NewLobbyFragment()
-        val searchFragment = SearchFragment()
-        val shopFragment = ShopFragment()
-        val loginScreenFragment = RegisterOrLoginScreenFragment()
         val bottom_navigation = binding.bottomNavigation
         var started = true
 
@@ -36,16 +31,6 @@ class MainActivity : AppCompatActivity(), Communicator {
             started = false
         }
 
-//        bottom_navigation.setOnNavigationItemSelectedListener {
-//
-//            when (it.itemId) {
-//                R.id.ic_search -> makeCurrentFragment(searchFragment)
-//                R.id.ic_addRoom -> makeCurrentFragment(newLobbyFragment)
-//                R.id.ic_account -> makeCurrentFragment(accountFragment)
-//                R.id.ic_shop -> makeCurrentFragment(shopFragment)
-//            }
-//            true
-//        }
     }
 
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
@@ -68,7 +53,6 @@ class MainActivity : AppCompatActivity(), Communicator {
         }
 
     override fun passDataCom(userFlag: Boolean) {
-        //TODO : replace the false with if the user is loged in or not from the ROOM
         val bundle = Bundle()
 
         val transaction = this.supportFragmentManager.beginTransaction()
