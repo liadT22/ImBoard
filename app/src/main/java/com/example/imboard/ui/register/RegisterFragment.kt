@@ -23,8 +23,11 @@ import com.example.imboard.repository.FirebaseImpl.FireBaseStorageRepository
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.storage.FirebaseStorage
+import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
+import il.co.syntax.myapplication.util.Success
 import java.util.*
+import il.co.syntax.myapplication.util.Error
 
 
 class RegisterFragment : Fragment() {
@@ -129,17 +132,17 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.userRegistrationStatus.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.regSubmitBtn.isEnabled = false
                     binding.registerProgress.isVisible = true
                 }
-                is Resource.Success -> {
+                is Success -> {
                     Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerFragment_to_searchFragment)
                     requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
                 }
-                is Resource.Error -> {
+                is Error -> {
                     binding.registerProgress.isVisible = false
                     binding.regSubmitBtn.isEnabled = true
                 }

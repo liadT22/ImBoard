@@ -24,9 +24,9 @@ class AccountViewModel(private val authRep: AuthRepository, private val fireStor
     val userPhoto : LiveData<Resource<Uri>> = _userPhoto
     init {
         viewModelScope.launch {
-            _currentUser.postValue(Resource.Loading())
-            if(authRep.currentUser().data == null){
-                _currentUser.postValue(Resource.Error("GuestMode On"))
+            _currentUser.postValue(Resource.loading())
+            if(authRep.currentUser().status.data == null){
+                _currentUser.postValue(Resource.error("GuestMode On"))
             }else{
                 _currentUser.postValue(authRep.currentUser())
                 getUserPhoto()
@@ -36,11 +36,11 @@ class AccountViewModel(private val authRep: AuthRepository, private val fireStor
 
     private fun getUserPhoto(){
         viewModelScope.launch {
-            _userPhoto.postValue(Resource.Loading())
-            if(authRep.currentUser().data == null){
-                _userPhoto.postValue(Resource.Error("GuestMode On"))
+            _userPhoto.postValue(Resource.loading())
+            if(authRep.currentUser().status.data == null){
+                _userPhoto.postValue(Resource.error("GuestMode On"))
             }else{
-                _userPhoto.postValue(fireStorageRep.getUserPhoto(authRep.currentUser().data!!.id))
+                _userPhoto.postValue(fireStorageRep.getUserPhoto(authRep.currentUser().status.data!!.id))
             }
         }
     }

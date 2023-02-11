@@ -22,24 +22,24 @@ class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: Lobbi
     fun addLobby(lobbyName: String, location: String, game: Game, date: String, time:String, haveTheGame: Boolean){
         viewModelScope.launch {
             if(lobbyName.isEmpty() || location.isEmpty() || game == null){
-                _addLobbyStatus.postValue(Resource.Error("Empty name, or location"))
+                _addLobbyStatus.postValue(Resource.error("Empty name, or location"))
             }
             else{
                 val lobbyPlayers : ArrayList<User> = ArrayList()
 
-                _addLobbyStatus.postValue(Resource.Loading())
-                _addLobbyStatus.postValue(authRep.currentUser().data?.let {
-                    lobbyPlayers.add(authRep.currentUser().data!!)
+                _addLobbyStatus.postValue(Resource.loading())
+                _addLobbyStatus.postValue(authRep.currentUser().status.data?.let {
+                    lobbyPlayers.add(authRep.currentUser().status.data!!)
                     val lobby :Resource<Lobby> = lobbyRep.addLobby(lobbyName, location,
                         it, game,date, time, haveTheGame, lobbyPlayers)
-                    lobby.data?.let { it1 ->
-                        authRep.currentUser().data?.lobbies?.add(
+                    lobby.status.data?.let { it1 ->
+                        authRep.currentUser().status.data?.lobbies?.add(
                             it1
                         )
                     }
-                    val lobbies = authRep.currentUser().data!!.lobbies
-                    lobby.data?.let { it1 -> lobbies?.add(it1) }
-                    authRep.addLobby(authRep.currentUser().data!!.id,lobbies!!)
+                    val lobbies = authRep.currentUser().status.data!!.lobbies
+                    lobby.status.data?.let { it1 -> lobbies?.add(it1) }
+                    authRep.addLobby(authRep.currentUser().status.data!!.id,lobbies!!)
                 })
 
             }

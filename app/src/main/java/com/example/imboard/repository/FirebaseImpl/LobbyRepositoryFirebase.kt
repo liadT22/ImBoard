@@ -28,21 +28,21 @@ class LobbyRepositoryFirebase : LobbiesRepository{
                 val lobbyId = lobbyRef.document().id
                 val lobby = Lobby(lobbyId,host,lobbyName,game,location,date, time, haveTheGame, lobbyPlayers)
                 val addition = lobbyRef.document(lobbyId).set(lobby).await()
-                Resource.Success(lobby)
+                Resource.success(lobby)
             }
         }
 
     override suspend fun deleteLobby(lobbyId: String) = withContext(Dispatchers.IO){
         safeCall {
             val result = lobbyRef.document(lobbyId).delete().await()
-            Resource.Success(result)
+            Resource.success(result)
         }
     }
 
     override suspend fun AddNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>) = withContext(Dispatchers.IO) {
         safeCall {
             val result = lobbyRef.document(lobbyId).update("lobby_players", lobbyPlayers).await()
-            Resource.Success(result)
+            Resource.success(result)
         }
     }
 
@@ -50,7 +50,7 @@ class LobbyRepositoryFirebase : LobbiesRepository{
         safeCall {
             val result = lobbyRef.document(id).get().await()
             val lobby = result.toObject(Lobby::class.java)
-            Resource.Success(lobby!!)
+            Resource.success(lobby!!)
         }
     }
 
@@ -58,22 +58,22 @@ class LobbyRepositoryFirebase : LobbiesRepository{
         safeCall {
             val result = lobbyRef.get().await()
             val tasks = result.toObjects(Lobby::class.java)
-            Resource.Success(tasks)
+            Resource.success(tasks)
         }
     }
 
     override fun getLobbiesLiveData(data: MutableLiveData<Resource<List<Lobby>>>) {
-        data.postValue(Resource.Loading())
+        data.postValue(Resource.loading())
 
         lobbyRef.orderBy("lobby_date").addSnapshotListener{ snapshot, e->
             if(e != null){
-                data.postValue(Resource.Error(e.localizedMessage))
+                data.postValue(Resource.error(e.localizedMessage))
             }
             if(snapshot != null && !snapshot.isEmpty){
-                data.postValue(Resource.Success(snapshot.toObjects(Lobby::class.java)))
+                data.postValue(Resource.success(snapshot.toObjects(Lobby::class.java)))
             }
             else{
-                data.postValue(Resource.Error("No Data"))
+                data.postValue(Resource.error("No Data"))
             }
         }
     }

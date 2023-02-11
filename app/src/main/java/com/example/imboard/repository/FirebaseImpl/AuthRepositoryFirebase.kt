@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import il.co.syntax.myapplication.util.Resource
+import il.co.syntax.myapplication.util.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -23,7 +24,7 @@ class AuthRepositoryFirebase : AuthRepository {
         return withContext(Dispatchers.IO){
             safeCall {
                 val user = userRef.document(firebaseAuth.currentUser!!.uid).get().await().toObject(User::class.java)
-                Resource.Success(user!!)
+                Resource.success(user!!)
             }
         }
     }
@@ -33,7 +34,7 @@ class AuthRepositoryFirebase : AuthRepository {
             safeCall {
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
                 val user = userRef.document(result.user?.uid!!).get().await().toObject(User::class.java)!!
-                Resource.Success(user)
+                Resource.success(user)
             }
         }
     }
@@ -41,7 +42,7 @@ class AuthRepositoryFirebase : AuthRepository {
     override suspend fun addLobby(userID:String, lobbies: ArrayList<Lobby>) = withContext(Dispatchers.IO) {
         safeCall {
             val result = userRef.document(userID).update("lobbies", lobbies).await()
-            Resource.Success(result)
+            Resource.success(result)
         }
     }
 
@@ -58,7 +59,7 @@ class AuthRepositoryFirebase : AuthRepository {
                 val userId = registrationResult.user?.uid!!
                 val newUser = User(userName, userEmail, userId)
                 val check = userRef.document(userId).set(newUser).await()
-                Resource.Success(newUser)
+                Resource.success(newUser)
             }
         }
     }

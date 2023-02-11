@@ -20,7 +20,10 @@ import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.repository.FirebaseImpl.LobbyRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
+import il.co.syntax.myapplication.util.Success
+import il.co.syntax.myapplication.util.Error
 
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding by autoCleared()
@@ -103,17 +106,17 @@ class SearchFragment : Fragment() {
         })
 
         viewModel.lobbiesStatus.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.progressBar.isVisible = true
                 }
-                is Resource.Success -> {
+                is Success -> {
                     binding.progressBar.isVisible = false
-                    (binding.searchLobbiesRecycler.adapter as AllLobbyAdapter).setLobbies(it.data!!)
+                    (binding.searchLobbiesRecycler.adapter as AllLobbyAdapter).setLobbies(it.status.data!!)
                 }
-                is Resource.Error ->{
+                is Error ->{
                     binding.progressBar.isVisible = false
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
