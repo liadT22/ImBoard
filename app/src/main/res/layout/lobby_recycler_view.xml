@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="15dp"
-        app:cardUseCompatPadding="true">
 
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal"
     android:layout_gravity="center|left">
         <ImageView
             android:id="@+id/lobby_game_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:orientation="vertical"
@@ -37,6 +35,14 @@
                 android:layout_height="wrap_content"
                 android:text="Lobby Name: The cool kid`s"
                 android:textColor="@color/teal_700" />
+
+            <TextView
+                android:id="@+id/game_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Game Name: Katan"
+                android:textColor="@color/teal_700" />
+
 
             <TextView
                 android:id="@+id/lobby_players_count"
@@ -61,12 +67,12 @@
         </LinearLayout>
     <ImageView
         android:id="@+id/lobby_have_game"
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="50dp"
         android:src="@drawable/dont_have"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"/>
 </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentRegisterOrLoginScreenBinding
-import com.example.imboard.fragments.SearchFragment
+import com.example.imboard.ui.all_lobbies.SearchFragment
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
