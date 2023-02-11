@@ -32,12 +32,12 @@ class RegisterViewModel(private val repository: AuthRepository, private val fire
             "Not a valid email"
         } else null
         error?.let {
-            _userRegistrationStatus.postValue(Resource.Error(it))
+            _userRegistrationStatus.postValue(Resource.error(it))
         }
-        _userRegistrationStatus.value = Resource.Loading()
+        _userRegistrationStatus.value = Resource.loading()
         viewModelScope.launch {
             val registrationResult = repository.createUser(userName, userEmail, userPass)
-            firebaseStorage.setUserPhoto(registrationResult.data!!.id,imageUri)
+            firebaseStorage.setUserPhoto(registrationResult.status.data!!.id,imageUri)
             _userRegistrationStatus.postValue(registrationResult)
         }
     }

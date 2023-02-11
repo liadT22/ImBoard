@@ -20,9 +20,12 @@ import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.type.DateTime
+import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
+import il.co.syntax.myapplication.util.Success
 import java.sql.Time
 import java.util.Calendar
+import il.co.syntax.myapplication.util.Error
 
 class NewLobbyFragment : Fragment() {
     private var binding : FragmentNewLobbyBinding by autoCleared()
@@ -90,35 +93,35 @@ class NewLobbyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
         viewModel.lobbiesStatus.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.newLobbyProgressBar.isVisible = true
                     binding.createButtonNewLobby.isEnabled = false
                 }
-                is Resource.Success -> {
+                is Success -> {
                     binding.newLobbyProgressBar.isVisible = false
                     binding.createButtonNewLobby.isEnabled = true
                 }
-                is Resource.Error ->{
+                is Error ->{
                     binding.newLobbyProgressBar.isVisible = false
                     binding.createButtonNewLobby.isEnabled = true
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
         viewModel.addLobbyStatus.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.newLobbyProgressBar.isVisible = true
                 }
-                is Resource.Success -> {
+                is Success -> {
                     binding.newLobbyProgressBar.isVisible = false
                     Snackbar.make(binding.root, "Item Added!", Snackbar.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
                 }
-                is Resource.Error ->{
+                is Error ->{
                     binding.newLobbyProgressBar.isVisible = false
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }

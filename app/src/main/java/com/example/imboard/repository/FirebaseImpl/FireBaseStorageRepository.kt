@@ -19,7 +19,7 @@ class FireBaseStorageRepository {
 //                val filesRef: StorageReference = fireBaseStorage.getReferenceFromUrl("account_photo/$userId")
 //                //val fileRef = filesRef.child(fullName)
                 val photoURI = fireBaseStorage.getReference("account_photo/$userId").downloadUrl.await()
-                Resource.Success(photoURI)
+                Resource.success(photoURI)
                // Resource.Success(photoURI)
             }
         }
@@ -28,7 +28,7 @@ class FireBaseStorageRepository {
     suspend fun setUserPhoto(userId : String, imageUri: Uri) = withContext(Dispatchers.IO){
         safeCall {
             val upload = fireBaseStorage.getReference().child("account_photo/$userId").putFile(imageUri)
-            Resource.Success(upload)
+            Resource.success(upload)
         }
     }
 }

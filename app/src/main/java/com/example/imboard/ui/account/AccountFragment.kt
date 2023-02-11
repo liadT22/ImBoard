@@ -23,7 +23,10 @@ import com.google.api.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
+import il.co.syntax.myapplication.util.Success
+import il.co.syntax.myapplication.util.Error
 import java.io.InputStream
 
 
@@ -66,36 +69,36 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
         viewModel.currentUser.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.accountProgressBar.isVisible = true
                 }
-                is Resource.Success -> {
+                is Success -> {
                     binding.accountProgressBar.isVisible = false
-                    binding.accountUsername.text = it.data?.name
-                    binding.accountEmail.text = it.data?.email
+                    binding.accountUsername.text = it.status.data?.name
+                    binding.accountEmail.text = it.status.data?.email
                 }
-                is Resource.Error -> {
+                is Error -> {
                     binding.accountProgressBar.isEnabled = true
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
         viewModel.userPhoto.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.accountProgressBar.isVisible = true
                 }
-                is Resource.Success -> {
+                is Success -> {
                     binding.accountProgressBar.isVisible = false
 //                    binding.accountProfilePhoto.setImageURI(it.data)
                     Glide.with(this)
-                        .load(it.data).circleCrop()
+                        .load(it.status.data).circleCrop()
                         .into(binding.accountProfilePhoto)
                 }
-                is Resource.Error -> {
+                is Error -> {
                     binding.accountProgressBar.isEnabled = true
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }

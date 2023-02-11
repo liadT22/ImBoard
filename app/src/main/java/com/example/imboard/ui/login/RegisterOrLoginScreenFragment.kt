@@ -16,6 +16,9 @@ import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import il.co.syntax.myapplication.util.Resource
+import il.co.syntax.myapplication.util.Error
+import il.co.syntax.myapplication.util.Loading
+import il.co.syntax.myapplication.util.Success
 
 class RegisterOrLoginScreenFragment : Fragment() {
 
@@ -48,33 +51,33 @@ class RegisterOrLoginScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.userSignInStatus.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.loginBtn.isEnabled = false
                     binding.loginProgressBar.isVisible = true
                 }
-                is Resource.Success -> {
+                is Success -> {
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_searchFragment)
                 }
-                is Resource.Error -> {
+                is Error -> {
                     binding.loginProgressBar.isVisible = false
                     binding.loginBtn.isEnabled = true
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
         viewModel.currentUser.observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Loading ->{
+            when(it.status){
+                is Loading ->{
                     binding.loginProgressBar.isVisible = true
                     binding.loginBtn.isEnabled = false
                 }
-                is Resource.Success -> {
+                is Success -> {
                     findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_searchFragment)
                     requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
                 }
-                is Resource.Error -> {
+                is Error -> {
                     binding.loginProgressBar.isVisible = false
                     binding.loginBtn.isEnabled = true
                 }
