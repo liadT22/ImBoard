@@ -1,10 +1,12 @@
 package com.example.imboard.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.imboard.R
@@ -12,11 +14,15 @@ import com.example.imboard.databinding.FragmentAccountBinding
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class AccountFragment : Fragment() {
 
     private var binding : FragmentAccountBinding by autoCleared()
     private val authRep: AuthRepositoryFirebase = AuthRepositoryFirebase()
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,11 +46,30 @@ class AccountFragment : Fragment() {
             }
             true
         }
+        initAccunt()
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
+    }
+
+    private fun initAccunt(){
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        binding.accountUsername.text = currentUser
+        binding.accountEmail.text = currentUser?.email
+
+        val firebaseStorage = FirebaseStorage.getInstance()
+        val storageReference = firebaseStorage.getReference("files/~2Fimages/${currentUser?.uid}")
+        val imageUri = storageReference.downloadUrl
+            .addOnSuccessListener { uri ->
+                val imageUri = uri
+                binding.accountProfilePhoto.setImageURI(imageUri)
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors that occur
+            }
     }
 
     override fun onDestroyView() {
