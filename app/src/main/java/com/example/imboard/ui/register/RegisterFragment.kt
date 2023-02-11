@@ -94,7 +94,7 @@ class RegisterFragment : Fragment() {
 
     private fun createThermsAlertDialog(): AlertDialog.Builder? {
         return AlertDialog.Builder(context).setTitle("Terms and conditions")
-            .setMessage("bla")
+            .setMessage("This work belongs to Liad, Ofek, Yanir. Don't steal our idea!")
             .setPositiveButton("Agree") { dialogInterface, it ->
                 userChoice("Agree")
                 dialogInterface.cancel()
