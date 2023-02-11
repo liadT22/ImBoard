@@ -1,6 +1,7 @@
 package com.example.imboard.repository.FirebaseImpl
 
 import android.net.Uri
+import com.example.imboard.model.Lobby
 import com.example.imboard.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -36,6 +37,13 @@ class AuthRepositoryFirebase : AuthRepository {
         }
     }
 
+    override suspend fun addLobby(userID:String, lobbies: ArrayList<Lobby>) = withContext(Dispatchers.IO) {
+        safeCall {
+            val result = userRef.document(userID).update("lobbies", lobbies).await()
+            Resource.Success(result)
+        }
+    }
+
     override suspend fun createUser(
         userName: String,
         userEmail: String,
@@ -48,7 +56,7 @@ class AuthRepositoryFirebase : AuthRepository {
                     firebaseAuth.createUserWithEmailAndPassword(userEmail, userLoginPassword)
                     .await()
                 val userId = registrationResult.user?.uid!!
-                val newUser = User(userName, userEmail)
+                val newUser = User(userName, userEmail,userId)
                 val check = userRef.document(userId).set(newUser).await()
                 Resource.Success(newUser)
             }

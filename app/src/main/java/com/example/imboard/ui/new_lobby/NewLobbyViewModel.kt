@@ -26,12 +26,22 @@ class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: Lobbi
             }
             else{
                 val lobbyPlayers : ArrayList<User> = ArrayList()
+
                 _addLobbyStatus.postValue(Resource.Loading())
                 _addLobbyStatus.postValue(authRep.currentUser().data?.let {
                     lobbyPlayers.add(authRep.currentUser().data!!)
-                    lobbyRep.addLobby(lobbyName, location,
+                    val lobby :Resource<Lobby> = lobbyRep.addLobby(lobbyName, location,
                         it, game,date, time, haveTheGame, lobbyPlayers)
+                    lobby.data?.let { it1 ->
+                        authRep.currentUser().data?.lobbies?.add(
+                            it1
+                        )
+                    }
+                    val lobbies = authRep.currentUser().data!!.lobbies
+                    lobby.data?.let { it1 -> lobbies?.add(it1) }
+                    authRep.addLobby(authRep.currentUser().data!!.id,lobbies!!)
                 })
+
             }
         }
     }

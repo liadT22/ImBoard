@@ -28,7 +28,7 @@ class LobbyRepositoryFirebase : LobbiesRepository{
                 val lobbyId = lobbyRef.document().id
                 val lobby = Lobby(lobbyId,host,lobbyName,game,location,date, time, haveTheGame, lobbyPlayers)
                 val addition = lobbyRef.document(lobbyId).set(lobby).await()
-                Resource.Success(addition)
+                Resource.Success(lobby)
             }
         }
 
