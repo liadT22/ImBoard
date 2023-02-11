@@ -14,3 +14,6 @@ data class User(val name:String ="",
                 val games: ArrayList<Game>? = ArrayList(),
                 val lobbies: ArrayList<Lobby>? = ArrayList(),
                 val uri: Uri? = null) : Parcelable
+
+
+
