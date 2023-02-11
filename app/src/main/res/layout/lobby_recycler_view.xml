@@ -71,7 +71,7 @@
         android:layout_weight="1"
         android:layout_height="50dp"
         android:src="@drawable/dont_have"
-        android:layout_gravity="center"
+        android:layout_gravity="center|end"
         android:layout_marginStart="10dp"/>
 </LinearLayout>
 

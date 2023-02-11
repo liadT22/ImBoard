@@ -43,6 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1.5"
                 android:gravity="center"
+                android:lines="2"
                 android:text="Players :\n2/4" />
 
             <TextView
