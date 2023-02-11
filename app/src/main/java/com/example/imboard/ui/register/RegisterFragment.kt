@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentRegisterScreenBinding
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
+import com.example.imboard.repository.FirebaseImpl.FireBaseStorageRepository
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.storage.FirebaseStorage
@@ -33,7 +34,7 @@ class RegisterFragment : Fragment() {
     private val fileReference = storageReference.child("images/" + UUID.randomUUID().toString())
 
     private var binding: FragmentRegisterScreenBinding by autoCleared()
-    private var imageUri: Uri? = null
+    private lateinit var imageUri: Uri
     private val pickImageResultLauncher : ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()){
             if (it != null) {
@@ -45,7 +46,7 @@ class RegisterFragment : Fragment() {
         }
 
     private val viewModel: RegisterViewModel by viewModels(){
-        RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase())
+        RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase(), FireBaseStorageRepository())
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -120,7 +121,6 @@ class RegisterFragment : Fragment() {
             binding.regEmailEditTxt.text.toString(),
             binding.regPasswordEditTxt.text.toString(),
                 imageUri)
-            uploadPhotoToFireBase(imageUri)
         }
         else
             invalidForm()

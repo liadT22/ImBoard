@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import safeCall
+import java.util.*
 
 class AuthRepositoryFirebase : AuthRepository {
 
@@ -48,7 +49,6 @@ class AuthRepositoryFirebase : AuthRepository {
         userName: String,
         userEmail: String,
         userLoginPassword: String,
-        imageUri: Uri?
     ): Resource<User> {
         return withContext(Dispatchers.IO){
             safeCall {
@@ -56,7 +56,7 @@ class AuthRepositoryFirebase : AuthRepository {
                     firebaseAuth.createUserWithEmailAndPassword(userEmail, userLoginPassword)
                     .await()
                 val userId = registrationResult.user?.uid!!
-                val newUser = User(userName, userEmail,userId)
+                val newUser = User(userName, userEmail, userId)
                 val check = userRef.document(userId).set(newUser).await()
                 Resource.Success(newUser)
             }
