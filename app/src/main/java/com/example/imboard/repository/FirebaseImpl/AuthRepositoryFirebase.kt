@@ -56,8 +56,9 @@ class AuthRepositoryFirebase : AuthRepository {
                     firebaseAuth.createUserWithEmailAndPassword(userEmail, userLoginPassword)
                     .await()
                 val userId = registrationResult.user?.uid!!
-                val newUser = User(userName, userEmail,userId)
-                val check = userRef.document(userId).set(newUser).await()
+                val newUser = User(userName, userEmail, userId)
+                userRef.document(userId).set(newUser).await()
+
                 Resource.Success(newUser)
             }
         }
