@@ -1,6 +1,7 @@
 package com.example.imboard.repository.FirebaseImpl
 
 import android.net.Uri
+import com.example.imboard.model.Lobby
 import com.example.imboard.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,6 +35,13 @@ class AuthRepositoryFirebase : AuthRepository {
                 val user = userRef.document(result.user?.uid!!).get().await().toObject(User::class.java)!!
                 Resource.Success(user)
             }
+        }
+    }
+
+    override suspend fun addLobby(userID:String, lobbies: ArrayList<Lobby>) = withContext(Dispatchers.IO) {
+        safeCall {
+            val result = userRef.document(userID).update("lobbies", lobbies).await()
+            Resource.Success(result)
         }
     }
 
