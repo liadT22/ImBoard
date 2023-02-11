@@ -80,6 +80,8 @@ class NewLobbyFragment : Fragment() {
             val time = lobbyHour.toString().padStart(2, '0') +':' + lobbyMin.toString().padStart(2, '0')
             viewModel.addLobby(binding.lobbyNameNewLbby.text.toString(),binding.locationNewLobby.text.toString()
             ,game, date ,time ,binding.checkboxHaveGame.isChecked)
+            //TODO add nave controller here to search
+            findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
         }
         return binding.root
     }
