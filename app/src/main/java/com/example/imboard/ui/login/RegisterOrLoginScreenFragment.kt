@@ -56,7 +56,6 @@ class RegisterOrLoginScreenFragment : Fragment() {
                 is Resource.Success -> {
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_searchFragment)
-                    requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
                 }
                 is Resource.Error -> {
                     binding.loginProgressBar.isVisible = false

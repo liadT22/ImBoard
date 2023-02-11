@@ -20,7 +20,7 @@ class AllLobbyAdapter(val callBack: LobbyListener) :
     }
 
     interface LobbyListener{
-        fun onLobbyClicked(index:Int)
+        fun onLobbyClicked(lobby: Lobby)
     }
 
     inner class LobbyViewHolder(private val binding: LobbyRecyclerViewBinding) :
@@ -32,7 +32,7 @@ class AllLobbyAdapter(val callBack: LobbyListener) :
         }
 
         override fun onClick(v: View?) {
-            callBack.onLobbyClicked(adapterPosition)
+            callBack.onLobbyClicked(lobbies[adapterPosition])
         }
 
         fun bind(lobby: Lobby) {

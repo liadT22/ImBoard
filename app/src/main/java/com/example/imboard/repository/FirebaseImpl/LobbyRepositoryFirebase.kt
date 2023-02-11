@@ -21,11 +21,12 @@ class LobbyRepositoryFirebase : LobbiesRepository{
         game: Game,
         date: String,
         time :String,
-        haveTheGame: Boolean
+        haveTheGame: Boolean,
+        lobbyPlayers: ArrayList<User>
     ) = withContext(Dispatchers.IO){
             safeCall {
                 val lobbyId = lobbyRef.document().id
-                val lobby = Lobby(lobbyId,host,lobbyName,game,location,date, time, haveTheGame)
+                val lobby = Lobby(lobbyId,host,lobbyName,game,location,date, time, haveTheGame, lobbyPlayers)
                 val addition = lobbyRef.document(lobbyId).set(lobby).await()
                 Resource.Success(addition)
             }
@@ -38,9 +39,9 @@ class LobbyRepositoryFirebase : LobbiesRepository{
         }
     }
 
-    override suspend fun setAgeRestriction(lobbyId: String, ageRestriction: Int) = withContext(Dispatchers.IO){
+    override suspend fun AddNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>) = withContext(Dispatchers.IO) {
         safeCall {
-            val result = lobbyRef.document(lobbyId).update("age restriction",ageRestriction).await()
+            val result = lobbyRef.document(lobbyId).update("lobby_players", lobbyPlayers).await()
             Resource.Success(result)
         }
     }
