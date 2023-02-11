@@ -1,10 +1,13 @@
 package com.example.imboard.model
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 import java.net.URI
 
+@Parcelize
 @Entity(tableName = "games_table")
 data class Game(
     @ColumnInfo(name = "name_of_game")
@@ -25,7 +28,7 @@ data class Game(
     @ColumnInfo(name = "description")
     val description_preview: String = "")
 
-{
+    : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

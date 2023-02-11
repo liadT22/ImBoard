@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="15dp"
-    tools:context=".fragments.SearchFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fav_lobbies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_weight="1"
-        android:orientation="horizontal" />
+    tools:context=".ui.all_lobbies.SearchFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_lobbies_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.4"
-        android:orientation="horizontal"
         android:paddingTop="20dp" />
 
-    <SearchView
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/progress_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_box_lobby"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/search_box"
         android:backgroundTint="@color/light_gray"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search For Lobby" />
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

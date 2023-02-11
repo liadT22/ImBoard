@@ -76,7 +76,7 @@ class NewLobbyFragment : Fragment() {
         }
         binding.createButtonNewLobby.setOnClickListener {
             val game = Game()
-            val date = "$lobbyDay/$lobbyMonth/$lobbyYear"
+            val date = "$lobbyMonth/$lobbyDay/$lobbyYear"
             val time = lobbyHour.toString().padStart(2, '0') +':' + lobbyMin.toString().padStart(2, '0')
             viewModel.addLobby(binding.lobbyNameNewLbby.text.toString(),binding.locationNewLobby.text.toString()
             ,game, date ,time ,binding.checkboxHaveGame.isChecked)
@@ -86,6 +86,7 @@ class NewLobbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
         viewModel.lobbiesStatus.observe(viewLifecycleOwner){
             when(it){
                 is Resource.Loading ->{
