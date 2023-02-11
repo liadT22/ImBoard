@@ -1,14 +1,18 @@
 package com.example.imboard.ui.all_lobbies
 
+import AccountAdapterInLobby
+import android.accounts.AccountManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.imboard.R
 import com.example.imboard.databinding.LobbyScreenBinding
 import com.example.imboard.model.Lobby
+import com.example.imboard.ui.recycleViewAccounts.UserManager.accounts
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -30,6 +34,10 @@ class LobbyScreen : Fragment() {
         }
         Glide.with(binding.root).load(R.drawable.have_game).circleCrop().into(binding.lobbyGameIcon)
 
+        if (lobby != null) {
+            binding.recycler.adapter = AccountAdapterInLobby(lobby.lobby_players)
+            binding.recycler.layoutManager = GridLayoutManager(requireContext(),lobby.lobby_players.size)
+        }
         return binding.root
     }
 
