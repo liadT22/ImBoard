@@ -1,16 +1,23 @@
-package com.example.imboard.fragments
+package com.example.imboard.ui.all_lobbies
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ItemTouchHelper.Callback
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.imboard.R
 import com.example.imboard.databinding.LobbyRecyclerViewBinding
+import com.example.imboard.model.Lobby
 
-class LobbyAdapterFix(val lobbys: List<Lobby>,val callBack: LobbyListener) :
-    RecyclerView.Adapter<LobbyAdapterFix.LobbyViewHolder>() {
+class AllLobbyAdapter(val callBack: LobbyListener) :
+    RecyclerView.Adapter<AllLobbyAdapter.LobbyViewHolder>() {
+    private val lobbies = ArrayList<Lobby>()
+
+    fun setLobbies(lobbies:Collection<Lobby>){
+        this.lobbies.clear()
+        this.lobbies.addAll(lobbies)
+        notifyDataSetChanged()
+    }
 
     interface LobbyListener{
         fun onLobbyClicked(index:Int)
@@ -29,18 +36,21 @@ class LobbyAdapterFix(val lobbys: List<Lobby>,val callBack: LobbyListener) :
         }
 
         fun bind(lobby: Lobby) {
-            lobby.lobby_image?.let { binding.lobbyGameImage.setImageResource(it) }
             binding.lobbyName.text = lobby.lobby_name
-            binding.lobbyPlayersCount.text = "Players: ${lobby.max_players} - ${lobby.min_players}"
-            binding.lobbyLocation.text = lobby.location
-            binding.lobbyDate.text = lobby.date
+            binding.lobbyPlayersCount.text = "Players: ${lobby.game.min_players} - ${lobby.game.max_players}"
+            binding.lobbyLocation.text = lobby.lobby_location
+
+            binding.gameName.text = "lobby.game.name"
+            //TODO: change into real photo
+            Glide.with(binding.root).load(R.drawable.have_game).circleCrop().into(binding.lobbyGameImage)
+            binding.lobbyDate.text = lobby.lobby_date
             binding.lobbyHaveGame.setImageResource(haveGame(lobby))
 
             }
         fun haveGame(lobby: Lobby): Int {
-            if(lobby.have_game == true)
-                return R.drawable.have_game
-            else return R.drawable.dont_have
+            return if(lobby.lobby_have_game == true)
+                R.drawable.have_game
+            else R.drawable.dont_have
         }
 
 
@@ -50,7 +60,7 @@ class LobbyAdapterFix(val lobbys: List<Lobby>,val callBack: LobbyListener) :
         LobbyViewHolder(LobbyRecyclerViewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: LobbyViewHolder, position: Int) =
-        holder.bind(lobbys[position])
+        holder.bind(lobbies[position])
 
-    override fun getItemCount() = lobbys.size
+    override fun getItemCount() = lobbies.size
 }

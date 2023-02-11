@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".fragments.LobbyScreenFragment">
+    tools:context=".ui.all_lobbies.LobbyFragment">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back_btn"

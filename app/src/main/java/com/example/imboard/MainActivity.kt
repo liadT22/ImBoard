@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.imboard.databinding.ActivityMainBinding
 import com.example.imboard.fragments.*
+import com.example.imboard.ui.all_lobbies.SearchFragment
 import com.example.imboard.ui.login.RegisterOrLoginScreenFragment
 import com.example.imboard.ui.new_lobby.NewLobbyFragment
 
@@ -35,17 +36,6 @@ class MainActivity : AppCompatActivity(), Communicator {
             bottom_navigation.visibility = View.GONE
             started = false
         }
-
-//        bottom_navigation.setOnNavigationItemSelectedListener {
-//
-//            when (it.itemId) {
-//                R.id.ic_search -> makeCurrentFragment(searchFragment)
-//                R.id.ic_addRoom -> makeCurrentFragment(newLobbyFragment)
-//                R.id.ic_account -> makeCurrentFragment(accountFragment)
-//                R.id.ic_shop -> makeCurrentFragment(shopFragment)
-//            }
-//            true
-//        }
     }
 
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
@@ -54,18 +44,6 @@ class MainActivity : AppCompatActivity(), Communicator {
     }
 
 
-    private fun makeCurrentFragment(fragment: Fragment) =
-
-        supportFragmentManager.beginTransaction().apply {
-            Log.i("fragment", fragment.toString())
-            //do slide to left/right
-            setCustomAnimations(
-                R.anim.from_left,
-                R.anim.to_right
-            )
-            replace(R.id.fragmentContainerView, fragment)
-            commit()
-        }
 
     override fun passDataCom(userFlag: Boolean) {
         //TODO : replace the false with if the user is loged in or not from the ROOM

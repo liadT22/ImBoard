@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.imboard.fragments.SearchFragment"
+        android:name="com.example.imboard.ui.all_lobbies.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -150,7 +150,7 @@
     </fragment>
     <fragment
         android:id="@+id/lobbyScreenFragment"
-        android:name="com.example.imboard.fragments.LobbyScreenFragment"
+        android:name="com.example.imboard.ui.all_lobbies.LobbyFragment"
         android:label="lobby_screen"
         tools:layout="@layout/lobby_screen" />
 

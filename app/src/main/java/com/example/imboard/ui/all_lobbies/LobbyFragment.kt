@@ -1,18 +1,18 @@
-package com.example.imboard.fragments
+package com.example.imboard.ui.all_lobbies
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.example.imboard.R
 import com.example.imboard.databinding.LobbyScreenBinding
+import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
+import com.example.imboard.repository.FirebaseImpl.LobbyRepositoryFirebase
 import com.example.imboard.util.autoCleared
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class LobbyScreenFragment : Fragment() {
+class LobbyFragment : Fragment() {
     private var binding : LobbyScreenBinding by autoCleared()
     override fun onCreateView(
         inflater: LayoutInflater,
