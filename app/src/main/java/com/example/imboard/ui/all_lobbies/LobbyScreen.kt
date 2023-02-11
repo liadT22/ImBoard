@@ -45,6 +45,7 @@ class LobbyScreen : Fragment() {
         }
         Glide.with(binding.root).load(R.drawable.have_game).circleCrop().into(binding.lobbyGameIcon)
 
+
         coroutineScope.launch {
         }
 
@@ -62,6 +63,10 @@ class LobbyScreen : Fragment() {
             }
         }
 
+        if (lobby != null) {
+            binding.recycler.adapter = AccountAdapterInLobby(lobby.lobby_players)
+            binding.recycler.layoutManager = GridLayoutManager(requireContext(),lobby.lobby_players.size)
+        }
         return binding.root
     }
 
