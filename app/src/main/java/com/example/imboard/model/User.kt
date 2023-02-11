@@ -10,7 +10,7 @@ import java.net.URI
 @Parcelize
 data class User(val name:String ="",
                 val email:String="",
+                val id: String = "",
                 val games: ArrayList<Game>? = ArrayList(),
                 val lobbies: ArrayList<Lobby>? = ArrayList(),
-                val id: String = "",
                 val uri: Uri? = null) : Parcelable
