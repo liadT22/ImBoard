@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentSearchBinding
+import com.example.imboard.model.Lobby
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.repository.FirebaseImpl.LobbyRepositoryFirebase
 import com.example.imboard.util.autoCleared
@@ -91,9 +93,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchLobbiesRecycler.layoutManager = LinearLayoutManager(requireContext())
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
         binding.searchLobbiesRecycler.adapter = AllLobbyAdapter(object :AllLobbyAdapter.LobbyListener{
-            override fun onLobbyClicked(index: Int) {
-                findNavController().navigate(R.id.action_searchFragment_to_lobbyScreenFragment)
+            override fun onLobbyClicked(lobby: Lobby) {
+                val bundle = Bundle()
+                bundle.putParcelable("lobby", lobby)
+                findNavController().navigate(R.id.action_searchFragment_to_lobbyScreenFragment, bundle)
             }
         })
 

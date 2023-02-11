@@ -3,6 +3,7 @@ package com.example.imboard.ui.new_lobby
 import androidx.lifecycle.*
 import com.example.imboard.model.Game
 import com.example.imboard.model.Lobby
+import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
 import com.example.imboard.repository.FirebaseImpl.LobbiesRepository
 import il.co.syntax.myapplication.util.Resource
@@ -24,10 +25,12 @@ class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: Lobbi
                 _addLobbyStatus.postValue(Resource.Error("Empty name, or location"))
             }
             else{
+                val lobbyPlayers : ArrayList<User> = ArrayList()
                 _addLobbyStatus.postValue(Resource.Loading())
                 _addLobbyStatus.postValue(authRep.currentUser().data?.let {
+                    lobbyPlayers.add(authRep.currentUser().data!!)
                     lobbyRep.addLobby(lobbyName, location,
-                        it, game,date, time, haveTheGame)
+                        it, game,date, time, haveTheGame, lobbyPlayers)
                 })
             }
         }

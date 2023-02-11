@@ -1,68 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lobby_screen_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".ui.all_lobbies.LobbyFragment">
+    android:orientation="vertical"
+    tools:context=".ui.all_lobbies.LobbyScreen">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/back_btn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="Back"
-        android:textAllCaps="false"
-        android:textColor="@color/teal_700" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/lobby_info"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
-        android:textAllCaps="false"
-        app:icon="@drawable/ic_baseline_info_24"
-        app:iconGravity="end"
-        app:iconTint="@color/teal_700" />
-
-    <LinearLayout
-        android:id="@+id/lobby_gameInfo_layout"
+    <TextView
+        android:id="@+id/lobby_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/back_btn"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Lobby`s name"
+        android:textColor="@color/teal_700"
+        android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/lobby_game_icon"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
             android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/lobby_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="Lobby`s name"
-            android:textColor="@color/teal_700"
-            android:textSize="24sp" />
 
         <LinearLayout
             android:id="@+id/lobby_infoLayout"
             android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/lobby_player_count"
-                style=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -81,40 +56,14 @@
                 android:textSize="20dp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/lobby_age_restriction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="Age :\n25" />
-        </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/lobby_inv_link_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center|start"
-            android:text="Invite to Lobby"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            app:icon="@drawable/ic_baseline_add_circle_outline_24"
-            app:iconTint="@color/teal_700" />
     </LinearLayout>
 
     <GridLayout
         android:id="@+id/lobby_participantsIcons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lobby_gameInfo_layout"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
         android:columnCount="2"
@@ -157,36 +106,35 @@
             />
 
     </GridLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lobby_participantsIcons_layout"
-        android:gravity="center">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/lobby_address_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|start"
-            android:text="Lobby address"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            app:icon="@drawable/ic_baseline_location_on_24"
-            app:iconTint="@color/teal_700"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/lobby_hour"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/lobby_location_lobby_room"
+            android:textSize="20sp"
+            android:text="Location"/>
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lobby_address_btn"
-            android:text="Hour : 00:00"
-            android:layout_marginStart="30dp"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            app:icon="@drawable/ic_baseline_location_on_24"
-            app:iconTint="@color/teal_700"/>
-    </RelativeLayout>
-</RelativeLayout>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/lobby_date_lobby_room"
+            android:textSize="20sp"
+            android:text="Date"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Join"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

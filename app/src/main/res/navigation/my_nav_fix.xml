@@ -150,7 +150,7 @@
     </fragment>
     <fragment
         android:id="@+id/lobbyScreenFragment"
-        android:name="com.example.imboard.ui.all_lobbies.LobbyFragment"
+        android:name="com.example.imboard.ui.all_lobbies.LobbyScreen"
         android:label="lobby_screen"
         tools:layout="@layout/lobby_screen" />
 
