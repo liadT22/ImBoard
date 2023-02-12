@@ -29,12 +29,11 @@ class LobbyScreen : Fragment() {
         if(lobby != null){
             binding.lobbyDateLobbyRoom.text = "${lobby.lobby_date} - ${lobby.lobby_time}"
             binding.lobbyLocationLobbyRoom.text = lobby.lobby_location
-            binding.lobbyGameName.text = "lobby.game.name"
+            binding.lobbyGameName.text = lobby.game.name
             binding.lobbyPlayerCount.text = "Players: ${lobby.lobby_players.size}/${lobby.game.max_players}"
             binding.lobbyName.text = lobby.lobby_name
+            Glide.with(binding.root).load(lobby.game.image_url).into(binding.lobbyGameIcon)
         }
-        Glide.with(binding.root).load(R.drawable.have_game).circleCrop().into(binding.lobbyGameIcon)
-
         return binding.root
     }
 
