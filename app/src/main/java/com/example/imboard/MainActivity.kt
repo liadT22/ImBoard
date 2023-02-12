@@ -2,11 +2,10 @@ package com.example.imboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.example.imboard.databinding.ActivityMainBinding
 import com.example.imboard.fragments.*
+import com.example.imboard.ui.MyLobbys.ShopFragment
 import com.example.imboard.ui.all_lobbies.SearchFragment
 import com.example.imboard.ui.login.RegisterOrLoginScreenFragment
 import com.example.imboard.ui.new_lobby.NewLobbyFragment

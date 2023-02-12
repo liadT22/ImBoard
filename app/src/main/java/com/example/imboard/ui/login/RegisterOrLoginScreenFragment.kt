@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentRegisterOrLoginScreenBinding
+import com.example.imboard.model.Lobby
+import com.example.imboard.model.User
 import com.example.imboard.ui.all_lobbies.SearchFragment
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
@@ -23,6 +25,7 @@ class RegisterOrLoginScreenFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels{
         LoginViewModel.LoginViewModelFactory(AuthRepositoryFirebase())
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.example.imboard.fragments.ShopFragment"
+        android:name="com.example.imboard.ui.MyLobbys.ShopFragment"
         android:label="fragment_shop"
         tools:layout="@layout/fragment_shop" >
         <action
