@@ -33,10 +33,6 @@ import il.co.syntax.myapplication.util.Error
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
-    private val storage = FirebaseStorage.getInstance()
-    private val storageReference = storage.reference
-    private val fileReference = storageReference.child("images/" + UUID.randomUUID().toString())
-
     private var binding: FragmentRegisterScreenBinding by autoCleared()
     private val viewModel: RegisterViewModel by viewModels()
     private lateinit var imageUri: Uri
@@ -89,20 +85,20 @@ class RegisterFragment : Fragment() {
     }
 
     fun userChoice(choice: String?) {
-        if (choice === "Agree")
+        if (choice === "${R.string.agree}")
             binding.regTacCheckBox.isChecked = true
-        else if (choice === "DisAgree")
+        else if (choice === "${R.string.disagree}")
             binding.regTacCheckBox.isChecked = false
     }
 
     private fun createThermsAlertDialog(): AlertDialog.Builder? {
-        return AlertDialog.Builder(context).setTitle("Terms and conditions")
-            .setMessage("This work belongs to Liad, Ofek, Yanir. Don't steal our idea!")
-            .setPositiveButton("Agree") { dialogInterface, it ->
+        return AlertDialog.Builder(context).setTitle(getString(R.string.terms_and_conditions))
+            .setMessage(getString(R.string.term_and_conditions_string))
+            .setPositiveButton(getString(R.string.agree)) { dialogInterface, it ->
                 userChoice("Agree")
                 dialogInterface.cancel()
             }
-            .setNegativeButton("DisAgree") { dialogInterface, it ->
+            .setNegativeButton(getString(R.string.disagree)) { dialogInterface, it ->
                 userChoice("DisAgree")
                 dialogInterface.cancel()
             }
@@ -137,7 +133,7 @@ class RegisterFragment : Fragment() {
                     binding.registerProgress.isVisible = true
                 }
                 is Success -> {
-                    Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.registeration_successful), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerFragment_to_searchFragment)
                     requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
                 }
@@ -148,61 +144,28 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-    private fun uploadPhotoToFireBase(imageUri: Uri?) {
-        val uploadTask = imageUri?.let { fileReference.putFile(it) }
-        if (uploadTask != null) {
-            uploadTask.addOnFailureListener {
-                Toast.makeText(context, "Upload failed!", Toast.LENGTH_SHORT).show()
-            }.addOnSuccessListener {
-                Toast.makeText(context, "Upload succeeded!", Toast.LENGTH_SHORT).show()
-                fileReference.downloadUrl.addOnSuccessListener {
-                    // Do something with the download URL
-                }
-
-            }
-        }
-    }
 
     private fun invalidForm()
     {
         var message = ""
         if(binding.regEmailContainer.helperText != null)
-            message += "\n\nEmail: " + binding.regEmailContainer.helperText
+            message += "\n\n${getString(R.string.email)}: " + binding.regEmailContainer.helperText
         if(binding.regPasswordContainer.helperText != null)
-            message += "\n\nPassword: " + binding.regPasswordContainer.helperText
+            message += "\n\n${getString(R.string.password)}: " + binding.regPasswordContainer.helperText
         if(binding.regNickContainer.helperText != null)
-            message += "\n\nNickname: " + binding.regNickContainer.helperText
+            message += "\n\n${getString(R.string.nickname)}: " + binding.regNickContainer.helperText
         if(!binding.regTacCheckBox.isChecked)
-            message += "\n\nPlease check Terms and Conditions box"
+            message += "\n\n${getString(R.string.please_check_term_and_conditions)}"
 
         AlertDialog.Builder(context)
-            .setTitle("Invalid Form")
+            .setTitle(getString(R.string.invalid_form))
             .setMessage(message)
-            .setPositiveButton("Okay"){ _,_ ->
+            .setPositiveButton(getString(R.string.okay)){ _,_ ->
                 // do nothing
             }
             .show()
     }
 
-    private fun resetForm()
-    {
-        var message = "Email: " + binding.regEmailEditTxt.text
-        message += "\nPassword: " + binding.regPasswordEditTxt.text
-        AlertDialog.Builder(context)
-            .setTitle("Form submitted")
-            .setMessage(message)
-            .setPositiveButton("Okay"){ _,_ ->
-                binding.regEmailEditTxt.text = null
-                binding.regPasswordEditTxt.text = null
-                binding.regNickEditTxt.text = null
-
-                binding.regEmailContainer.helperText = getString(R.string.required)
-                binding.regPasswordContainer.helperText = getString(R.string.required)
-                binding.regNickContainer.helperText = getString(R.string.required)
-            }
-            .show()
-
-    }
 
     private fun emailFocusListener()
     {
@@ -221,23 +184,9 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-    private fun validNickname(): String?
-    {
-        val nickname = binding.regNickEditTxt.text.toString()
-        if(nickname.length < 3)
-            return "Minimum 3 Character Nickname"
-        return null
-    }
+    private fun validNickname(): String? = viewModel.validNickName(binding.regNickEditTxt.text.toString())
 
-    private fun validEmail(): String?
-    {
-        val emailText = binding.regEmailEditTxt.text.toString()
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailText).matches())
-        {
-            return "Invalid Email Address"
-        }
-        return null
-    }
+    private fun validEmail(): String? = viewModel.validEmail(binding.regEmailEditTxt.text.toString())
 
     private fun passwordFocusListener()
     {
@@ -249,24 +198,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun validPassword(): String?
-    {
-        val passwordText = binding.regPasswordEditTxt.text.toString()
-        if(passwordText.length < 8)
-        {
-            return "Minimum 8 Character Password"
-        }
-        if(!passwordText.matches(".*[A-Z].*".toRegex()))
-        {
-            return "Must Contain 1 Upper-case Character"
-        }
-        if(!passwordText.matches(".*[a-z].*".toRegex()))
-        {
-            return "Must Contain 1 Lower-case Character"
-        }
-
-        return null
-    }
+    private fun validPassword(): String? = viewModel.validPassword(binding.regPasswordEditTxt.text.toString())
 
 }
 

@@ -31,12 +31,6 @@ import il.co.syntax.myapplication.util.Error
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding by autoCleared()
     private val viewModel : AllLobbiesViewModel by viewModels()
-//    private val viewModel : AllLobbiesViewModel by viewModels{
-//        AllLobbiesViewModel.AllLobbiesViewModelFactory(
-//            LobbyRepositoryFirebase(),
-//            GameRepository()
-//        )
-//    }
 
 
     override fun onCreateView(
@@ -50,7 +44,6 @@ class SearchFragment : Fragment() {
             when (it.itemId) {
                 R.id.ic_account -> findNavController().navigate(R.id.action_searchFragment_to_accountFragment)
                 R.id.ic_addRoom -> findNavController().navigate(R.id.action_searchFragment_to_newLobbyFragment)
-                R.id.ic_shop -> findNavController().navigate(R.id.action_searchFragment_to_shopFragment)
             }
             true
         }
@@ -91,7 +84,4 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }

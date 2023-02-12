@@ -1,6 +1,7 @@
 package com.example.imboard.ui.new_lobby
 
 import androidx.lifecycle.*
+import com.example.imboard.R
 import com.example.imboard.model.Game
 import com.example.imboard.model.Lobby
 import com.example.imboard.model.User

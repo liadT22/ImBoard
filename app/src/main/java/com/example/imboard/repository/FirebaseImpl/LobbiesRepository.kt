@@ -9,7 +9,7 @@ import il.co.syntax.myapplication.util.Resource
 interface LobbiesRepository {
     suspend fun addLobby(lobbyName: String, location : String , host: User, game: Game, date: String, time:String, haveTheGame : Boolean, lobbyPlayers: ArrayList<User>) : Resource<Lobby>
     suspend fun deleteLobby(lobbyId: String) : Resource<Void>
-    suspend fun AddNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>): Resource<Void>
+    suspend fun addNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>): Resource<Void>
     suspend fun getLobby(id:String): Resource<Lobby>
     suspend fun setLobbyPlayers(lobbyId: String, lobbyPlayers : ArrayList<User>) : Resource<Void>
     suspend fun getAllLobbies(): Resource<List<Lobby>>

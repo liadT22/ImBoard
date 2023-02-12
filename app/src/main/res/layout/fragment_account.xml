@@ -16,9 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Account"
+            android:text="@string/account"
             android:textColor="@color/teal_700"
             android:textSize="20sp"
+            android:layout_marginBottom="10dp"
             android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
@@ -57,7 +58,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|top"
                         android:gravity="center"
-                        android:text="Username"
                         android:textColor="@color/teal_700"
                         android:textSize="20sp" />
 
@@ -67,7 +67,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|top"
                         android:gravity="center"
-                        android:text="email@gmail.com"
                         android:textColor="@color/teal_700"
                         android:textSize="16sp"/>
                 </LinearLayout>
@@ -76,62 +75,11 @@
 
         </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/my_games_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|start"
-            android:text="My Games"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            android:textSize="14sp"
-            app:icon="@drawable/ic_baseline_library_add_check_24"
-            app:iconTint="@color/teal_700" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/friends_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|start"
-            android:text="Friends"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            android:textSize="14sp"
-            app:icon="@drawable/ic_baseline_people_24"
-            app:iconTint="@color/teal_700" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/profile_setting_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|start"
-            android:text="Profile Settings"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            android:textSize="14sp"
-            app:icon="@drawable/ic_baseline_manage_accounts_24"
-            app:iconTint="@color/teal_700" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/setting_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|start"
-            android:text="Setting"
-            android:textAllCaps="false"
-            android:textColor="@color/teal_700"
-            android:textSize="14sp"
-            app:icon="@drawable/ic_baseline_settings_24"
-            app:iconTint="@color/teal_700" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="About"
+            android:layout_marginTop="10dp"
+            android:text="@string/about"
             android:textColor="@color/teal_700"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -142,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="Terms and Conditions"
+            android:text="@string/terms_and_conditions"
             android:textAllCaps="false"
             android:textColor="@color/teal_700"
             android:textSize="14sp"
@@ -156,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="Log out"
+            android:text="@string/log_out"
             android:textAllCaps="false"
             android:textColor="@color/red"
             android:textSize="14sp"

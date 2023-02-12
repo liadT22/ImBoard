@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Lobby`s name"
+        android:text="@string/lobby_s_name"
         android:textColor="@color/teal_700"
         android:textSize="24sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_weight="1.5"
                 android:gravity="center"
                 android:lines="2"
-                android:text="Players :\n2/4" />
+                android:text="@string/players_n2_4" />
 
             <TextView
                 android:id="@+id/lobby_game_name"
@@ -53,8 +53,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Game Name"
-                android:textSize="20dp"
+                android:text="@string/game_name"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
 
@@ -83,7 +83,7 @@
             android:gravity="center"
             android:id="@+id/lobby_location_lobby_room"
             android:textSize="20sp"
-            android:text="Location"/>
+            android:text="@string/location"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             android:gravity="center"
             android:id="@+id/lobby_date_lobby_room"
             android:textSize="20sp"
-            android:text="Date"/>
+            android:text="@string/date"/>
 
     </LinearLayout>
 
@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Join"
+        android:text="@string/join"
         android:id="@+id/join_lobby_btn"
         android:layout_marginTop="10dp"/>
 

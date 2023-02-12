@@ -3,8 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
     app:cardUseCompatPadding="true"
-    app:cardElevation="8dp"
+    app:cardElevation="10dp"
     app:cardCornerRadius="8dp">
 <LinearLayout
     android:layout_width="wrap_content"
@@ -21,7 +22,7 @@
         android:id="@+id/game_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Catan"
+
         android:layout_gravity="center"
         android:textSize="15sp"
         android:textColor="@color/teal_700" />

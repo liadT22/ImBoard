@@ -1,13 +1,17 @@
 package com.example.imboard.ui.all_lobbies
 
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.imboard.MyApplication
 import com.example.imboard.R
 import com.example.imboard.databinding.LobbyRecyclerViewBinding
 import com.example.imboard.model.Lobby
+import com.google.android.material.internal.ContextUtils.getActivity
+import java.security.AccessController.getContext
 
 class AllLobbyAdapter(val callBack: LobbyListener) :
     RecyclerView.Adapter<AllLobbyAdapter.LobbyViewHolder>() {
@@ -37,11 +41,10 @@ class AllLobbyAdapter(val callBack: LobbyListener) :
 
         fun bind(lobby: Lobby) {
             binding.lobbyName.text = lobby.lobby_name
-            binding.lobbyPlayersCount.text = "Players: ${lobby.lobby_players.size}/${lobby.game.max_players}"
+            binding.lobbyPlayersCount.text = "Players : ${lobby.lobby_players.size}/${lobby.game.max_players}"
             binding.lobbyLocation.text = lobby.lobby_location
 
             binding.gameName.text = lobby.game.name
-            //TODO: change into real photo
             Glide.with(binding.root).load(lobby.game.image_url).circleCrop().into(binding.lobbyGameImage)
             binding.lobbyDate.text = lobby.lobby_date
             binding.lobbyHaveGame.setImageResource(haveGame(lobby))

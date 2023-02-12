@@ -1,6 +1,7 @@
 package com.example.imboard.ui.login
 
 import androidx.lifecycle.*
+import com.example.imboard.R
 import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,7 @@ class LoginViewModel @Inject constructor(private val authRep : AuthRepository) :
     }
     fun signInUser(userEmail:String, userPassword:String){
         if(userEmail.isEmpty()||userPassword.isEmpty()){
-            _userSignInStatus.postValue(Resource.error("Empty email or password"))
+            _userSignInStatus.postValue(Resource.error("Please fill the entire form"))
         }else{
             _userSignInStatus.postValue(Resource.loading())
             viewModelScope.launch {

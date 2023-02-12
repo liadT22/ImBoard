@@ -37,7 +37,7 @@ import il.co.syntax.myapplication.util.Error
 class NewLobbyFragment : Fragment() {
     private var binding : FragmentNewLobbyBinding by autoCleared()
     private val viewModel : NewLobbyViewModel by viewModels()
-    lateinit var Clickedgame : Game
+    lateinit var clickedGame : Game
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,14 +56,13 @@ class NewLobbyFragment : Fragment() {
             when (it.itemId) {
                 R.id.ic_account -> findNavController().navigate(R.id.action_newLobbyFragment_to_accountFragment)
                 R.id.ic_search -> findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
-                R.id.ic_shop -> findNavController().navigate(R.id.action_newLobbyFragment_to_shopFragment)
             }
             true
         }
         binding.dateBtn.setOnClickListener{
             val c = Calendar.getInstance()
             val listener = DatePickerDialog.OnDateSetListener{view, year, month, dayOfMonth ->
-                binding.dateBtn.text = "Date : $dayOfMonth/$month/$year"
+                binding.dateBtn.text = "${getString(R.string.date)} : $dayOfMonth/$month/$year"
                 lobbyYear=year
                 lobbyMonth=month
                 lobbyDay=dayOfMonth
@@ -76,7 +75,7 @@ class NewLobbyFragment : Fragment() {
         binding.TimeBtn.setOnClickListener{
             val t = Calendar.getInstance()
             val listener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                binding.TimeBtn.text = "Time: ${hourOfDay.toString().padStart(2,'0')}:${minute.toString().padStart(2, '0')}"
+                binding.TimeBtn.text = "${getString(R.string.time)}: ${hourOfDay.toString().padStart(2,'0')}:${minute.toString().padStart(2, '0')}"
                 lobbyHour = hourOfDay
                 lobbyMin = minute
             }
@@ -87,8 +86,7 @@ class NewLobbyFragment : Fragment() {
             val date = "$lobbyMonth/$lobbyDay/$lobbyYear"
             val time = lobbyHour.toString().padStart(2, '0') +':' + lobbyMin.toString().padStart(2, '0')
             viewModel.addLobby(binding.lobbyNameNewLbby.text.toString(),binding.locationNewLobby.text.toString()
-            ,Clickedgame, date ,time ,binding.checkboxHaveGame.isChecked)
-            //TODO add nave controller here to search
+            ,clickedGame, date ,time ,binding.checkboxHaveGame.isChecked)
             findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
         }
         return binding.root
@@ -101,7 +99,7 @@ class NewLobbyFragment : Fragment() {
         binding.gameRecyclerView.adapter = NewLobbyAdapter(object :NewLobbyAdapter.GameListener{
             override fun onGameClicked(game: Game) {
                 binding.gameNameNewLobby.editText?.text = Editable.Factory.getInstance().newEditable(game.name)
-                Clickedgame = game
+                clickedGame = game
             }
         })
 
@@ -129,7 +127,7 @@ class NewLobbyFragment : Fragment() {
                 }
                 is Success -> {
                     binding.newLobbyProgressBar.isVisible = false
-                    Snackbar.make(binding.root, "Item Added!", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, getString(R.string.item_added), Snackbar.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
                 }
                 is Error ->{
@@ -153,9 +151,5 @@ class NewLobbyFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }
