@@ -39,7 +39,7 @@ class LobbyRepositoryFirebase : LobbiesRepository{
         }
     }
 
-    override suspend fun AddNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>) = withContext(Dispatchers.IO) {
+    override suspend fun addNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>) = withContext(Dispatchers.IO) {
         safeCall {
             val result = lobbyRef.document(lobbyId).update("lobby_players", lobbyPlayers).await()
             Resource.success(result)

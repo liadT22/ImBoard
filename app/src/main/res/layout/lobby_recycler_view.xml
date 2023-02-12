@@ -12,8 +12,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:orientation="horizontal"
-    android:layout_gravity="center|left">
+    android:orientation="horizontal">
         <ImageView
             android:id="@+id/lobby_game_image"
             android:layout_width="80dp"
@@ -32,14 +31,12 @@
                 android:id="@+id/lobby_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lobby Name: The cool kid`s"
                 android:textColor="@color/teal_700" />
 
             <TextView
                 android:id="@+id/game_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Game Name: Katan"
                 android:textColor="@color/teal_700" />
 
 
@@ -47,30 +44,26 @@
                 android:id="@+id/lobby_players_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Players: 3/4"
                 android:textColor="@color/teal_700" />
 
             <TextView
                 android:id="@+id/lobby_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="City: Rishon Lezion"
                 android:textColor="@color/teal_700" />
 
             <TextView
                 android:id="@+id/lobby_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date: 13-02-23"
                 android:textColor="@color/teal_700" />
         </LinearLayout>
     <ImageView
         android:id="@+id/lobby_have_game"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:src="@drawable/dont_have"
-        android:layout_gravity="center|end"
+        android:layout_gravity="center"
         android:layout_marginStart="10dp"/>
 </LinearLayout>
 

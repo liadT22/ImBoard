@@ -1,5 +1,6 @@
 package com.example.imboard.ui.account
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,12 +36,6 @@ class AccountFragment : Fragment() {
 
     private var binding : FragmentAccountBinding by autoCleared()
     private val viewModel: AccountViewModel by viewModels()
-//    private val viewModel: AccountViewModel by viewModels{
-//        AccountViewModel.AccountViewModelFactory(AuthRepositoryFirebase(),
-//            FireBaseStorageRepository()
-//        )
-//    }
-    private val authRep: AuthRepositoryFirebase = AuthRepositoryFirebase()
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,10 +45,9 @@ class AccountFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentAccountBinding.inflate(inflater, container, false)
         binding.signOutBtn.setOnClickListener {
-            authRep.logout()
+            viewModel.logOut()
             val navController = Navigation.findNavController(binding.root)
             navController.navigate(R.id.action_accountFragment_to_registerOrLoginScreenFragment)
-
         }
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener()
         {
@@ -61,9 +55,16 @@ class AccountFragment : Fragment() {
             when (it.itemId) {
                 R.id.ic_search -> findNavController().navigate(R.id.action_accountFragment_to_searchFragment)
                 R.id.ic_addRoom -> findNavController().navigate(R.id.action_accountFragment_to_newLobbyFragment)
-                R.id.ic_shop -> findNavController().navigate(R.id.action_accountFragment_to_shopFragment)
             }
             true
+        }
+        binding.termsAndConditionBtn.setOnClickListener{
+            val builder = AlertDialog.Builder(context).setTitle(R.string.terms_and_conditions)
+                .setMessage(R.string.term_and_conditions_string)
+                .setPositiveButton(R.string.agree) { dialogInterface, it ->
+                    dialogInterface.cancel()
+                }
+            builder.show()
         }
         return binding.root
     }
@@ -93,7 +94,6 @@ class AccountFragment : Fragment() {
                 }
                 is Success -> {
                     binding.accountProgressBar.isVisible = false
-//                    binding.accountProfilePhoto.setImageURI(it.data)
                     Glide.with(this)
                         .load(it.status.data).circleCrop()
                         .into(binding.accountProfilePhoto)
@@ -106,21 +106,6 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun initAccunt(userName: TextView, userEmail:TextView, userPhoto:ImageView){
-        val currentUser = FirebaseAuth.getInstance().currentUser
-
-        binding.accountEmail.text = currentUser?.email
-        val firebaseStorage = FirebaseStorage.getInstance()
-        //val storageReference = firebaseStorage.getReference("files/~2Fimages/${currentUser.uid}")
-//        val imageUri = storageReference.downloadUrl
-//            .addOnSuccessListener { uri ->
-//                val imageUri = uri
-//                binding.accountProfilePhoto.setImageURI(imageUri)
-//            }
-//            .addOnFailureListener { exception ->
-//                // Handle any errors that occur
-//            }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

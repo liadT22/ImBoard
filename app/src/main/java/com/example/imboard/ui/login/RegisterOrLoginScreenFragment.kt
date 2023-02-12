@@ -32,24 +32,22 @@ class RegisterOrLoginScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val searchFragment = SearchFragment()
-
         binding = FragmentRegisterOrLoginScreenBinding.inflate(inflater,container,false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.GONE
         binding.loginBtn.setOnClickListener{
             viewModel.signInUser(binding.emailEtxt.editText?.text.toString(),
-            binding.passwordEtxt.editText?.text.toString())
+                binding.passwordEtxt.editText?.text.toString())
 
         }
 
         binding.registerBtn.setOnClickListener {
             findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_registerFragment)
         }
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewModel.userSignInStatus.observe(viewLifecycleOwner){
             when(it.status){
                 is Loading ->{
@@ -57,7 +55,6 @@ class RegisterOrLoginScreenFragment : Fragment() {
                     binding.loginProgressBar.isVisible = true
                 }
                 is Success -> {
-                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerOrLoginScreenFragment_to_searchFragment)
                 }
                 is Error -> {
@@ -83,10 +80,6 @@ class RegisterOrLoginScreenFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
 }

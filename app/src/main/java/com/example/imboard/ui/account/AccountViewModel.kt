@@ -39,6 +39,10 @@ class AccountViewModel @Inject constructor(private val authRep: AuthRepository,
         }
     }
 
+    fun logOut(){
+        authRep.logout()
+    }
+
     private fun getUserPhoto() {
         viewModelScope.launch {
             _userPhoto.postValue(Resource.loading())

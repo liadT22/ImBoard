@@ -94,20 +94,20 @@ class LobbyScreen : Fragment() {
                         binding.lobbyLocationLobbyRoom.text = it.status.data?.lobby_location
                         binding.lobbyGameName.text = it.status.data?.game?.name
                         binding.lobbyPlayerCount.text =
-                            "Players: ${it.status.data?.lobby_players?.size}/${it.status.data?.game?.max_players}"
+                            "${getString(R.string.players)}: ${it.status.data?.lobby_players?.size}/${it.status.data?.game?.max_players}"
                         binding.lobbyName.text = it.status.data?.lobby_name
                         Glide.with(binding.root).load(it.status.data?.game?.image_url)
                             .into(binding.lobbyGameIcon)
                         if (lobby!!.lobby_players[0].id == currentUser.id){
                             binding.joinLobbyBtn.isVisible = false
                         }else if(lobby!!.lobby_players.contains(currentUser)){
-                            binding.joinLobbyBtn.text = "Leave"
+                            binding.joinLobbyBtn.text = getString(R.string.leave)
                             binding.joinLobbyBtn.isClickable = true
                         }else if (lobby!!.lobby_players.size == lobby!!.game.max_players){
-                            binding.joinLobbyBtn.text = "Lobby full"
+                            binding.joinLobbyBtn.text = getString(R.string.lobby_full)
                             binding.joinLobbyBtn.isClickable = false
                         }else{
-                            binding.joinLobbyBtn.text = "Join"
+                            binding.joinLobbyBtn.text = getString(R.string.join)
                             binding.joinLobbyBtn.isClickable = true
                         }
                     }
@@ -120,9 +120,5 @@ class LobbyScreen : Fragment() {
             requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
                 View.GONE
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }

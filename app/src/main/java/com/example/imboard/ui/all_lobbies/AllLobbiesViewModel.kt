@@ -22,9 +22,4 @@ class AllLobbiesViewModel @Inject constructor(
         lobbyRep.getLobbiesLiveData(_lobbiesStatus)
     }
 
-//    class AllLobbiesViewModelFactory(val lobbyRep: LobbiesRepository):ViewModelProvider.Factory{
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            return AllLobbiesViewModel(lobbyRep) as T
-//        }
-//    }
 }
