@@ -6,10 +6,14 @@ import com.example.imboard.model.Lobby
 import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
 import com.example.imboard.repository.FirebaseImpl.LobbiesRepository
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import il.co.syntax.myapplication.util.Resource
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: LobbiesRepository) :ViewModel() {
+@HiltViewModel
+class NewLobbyViewModel @Inject constructor(private val authRep: AuthRepository, private val lobbyRep: LobbiesRepository) :ViewModel() {
     private val _lobbiesStatus : MutableLiveData<Resource<List<Lobby>>> = MutableLiveData()
     val lobbiesStatus: LiveData<Resource<List<Lobby>>> = _lobbiesStatus
 
@@ -43,11 +47,6 @@ class NewLobbyViewModel(private val authRep: AuthRepository, val lobbyRep: Lobbi
                 })
 
             }
-        }
-    }
-    class NewLobbiesViewModelFactory(val authRep: AuthRepository, val lobbyRep: LobbiesRepository) :ViewModelProvider.Factory{
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return NewLobbyViewModel(authRep, lobbyRep) as T
         }
     }
 }

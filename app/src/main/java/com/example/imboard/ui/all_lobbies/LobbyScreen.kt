@@ -13,7 +13,9 @@ import com.example.imboard.model.AccountRecycler
 import com.example.imboard.model.Lobby
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LobbyScreen : Fragment() {
     private var binding : LobbyScreenBinding by autoCleared()
 

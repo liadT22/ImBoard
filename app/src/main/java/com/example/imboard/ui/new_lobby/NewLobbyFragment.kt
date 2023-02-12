@@ -20,6 +20,7 @@ import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.type.DateTime
+import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
 import il.co.syntax.myapplication.util.Success
@@ -27,11 +28,10 @@ import java.sql.Time
 import java.util.Calendar
 import il.co.syntax.myapplication.util.Error
 
+@AndroidEntryPoint
 class NewLobbyFragment : Fragment() {
     private var binding : FragmentNewLobbyBinding by autoCleared()
-    private val viewModel : NewLobbyViewModel by viewModels {
-        NewLobbyViewModel.NewLobbiesViewModelFactory(AuthRepositoryFirebase(), LobbyRepositoryFirebase())
-    }
+    private val viewModel : NewLobbyViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

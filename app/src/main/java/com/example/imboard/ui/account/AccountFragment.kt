@@ -23,21 +23,23 @@ import com.google.api.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
 import il.co.syntax.myapplication.util.Success
 import il.co.syntax.myapplication.util.Error
 import java.io.InputStream
 
-
+@AndroidEntryPoint
 class AccountFragment : Fragment() {
 
     private var binding : FragmentAccountBinding by autoCleared()
-    private val viewModel: AccountViewModel by viewModels{
-        AccountViewModel.AccountViewModelFactory(AuthRepositoryFirebase(),
-            FireBaseStorageRepository()
-        )
-    }
+    private val viewModel: AccountViewModel by viewModels()
+//    private val viewModel: AccountViewModel by viewModels{
+//        AccountViewModel.AccountViewModelFactory(AuthRepositoryFirebase(),
+//            FireBaseStorageRepository()
+//        )
+//    }
     private val authRep: AuthRepositoryFirebase = AuthRepositoryFirebase()
     
     override fun onCreateView(

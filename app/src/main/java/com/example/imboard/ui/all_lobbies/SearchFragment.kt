@@ -17,31 +17,26 @@ import com.example.imboard.R
 import com.example.imboard.databinding.FragmentSearchBinding
 import com.example.imboard.model.Lobby
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
+import com.example.imboard.repository.FirebaseImpl.GameRepository
 import com.example.imboard.repository.FirebaseImpl.LobbyRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
 import il.co.syntax.myapplication.util.Success
 import il.co.syntax.myapplication.util.Error
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding by autoCleared()
-    private val viewModel : AllLobbiesViewModel by viewModels{
-        AllLobbiesViewModel.AllLobbiesViewModelFactory(
-            AuthRepositoryFirebase(),
-            LobbyRepositoryFirebase()
-        )
-    }
-
-    //Lobby class variables
-    lateinit var lobbysImageId: Array<Int>
-    lateinit var lobbysNames: Array<String>
-    lateinit var maxPlayers: Array<Int>
-    lateinit var minPlayers: Array<Int>
-    lateinit var locations: Array<String>
-    lateinit var dates: Array<String>
-    lateinit var have_game: Array<Boolean>
+    private val viewModel : AllLobbiesViewModel by viewModels()
+//    private val viewModel : AllLobbiesViewModel by viewModels{
+//        AllLobbiesViewModel.AllLobbiesViewModelFactory(
+//            LobbyRepositoryFirebase(),
+//            GameRepository()
+//        )
+//    }
 
 
     override fun onCreateView(
@@ -66,32 +61,6 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-//    private fun addMovementToRecycler() {
-//        ItemTouchHelper(object : ItemTouchHelper.Callback(){
-//            override fun getMovementFlags(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder
-//            ): Int {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                TODO("Not yet implemented")
-//                //UPDATE all lobbys (refresh) binding.searchLobbiesRecycler.adapter!!.notifyDataSetChanged(viewHolder.adapterPosition)
-//                //UPDATE if we delete binding.searchLobbiesRecycler.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
-//            }
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                TODO("Not yet implemented")
-//            }
-//        }).attachToRecyclerView(binding.searchLobbiesRecycler)
-//    }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -113,6 +82,18 @@ class SearchFragment : Fragment() {
                 is Success -> {
                     binding.progressBar.isVisible = false
                     (binding.searchLobbiesRecycler.adapter as AllLobbyAdapter).setLobbies(it.status.data!!)
+                }
+                is Error ->{
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        viewModel.games.observe(viewLifecycleOwner){
+            when(it.status){
+                is Loading -> binding.progressBar.isVisible = true
+                is Success ->{
+                    binding.progressBar.isVisible = false
                 }
                 is Error ->{
                     binding.progressBar.isVisible = false
