@@ -89,18 +89,6 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-        viewModel.games.observe(viewLifecycleOwner){
-            when(it.status){
-                is Loading -> binding.progressBar.isVisible = true
-                is Success ->{
-                    binding.progressBar.isVisible = false
-                }
-                is Error ->{
-                    binding.progressBar.isVisible = false
-                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
 
     override fun onDestroyView() {

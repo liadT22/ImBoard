@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.imboard.model.Game
 
-@Database(entities = [Game::class], version = 3, exportSchema = false)
+@Database(entities = [Game::class], version = 5, exportSchema = false)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun gameDao() :GameDao
 

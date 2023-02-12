@@ -13,12 +13,10 @@ import javax.inject.Inject
 @HiltViewModel
 class AllLobbiesViewModel @Inject constructor(
     lobbyRep: LobbiesRepository,
-    gameRepository: GameRepository
     ) :ViewModel()  {
 
     private val _lobbiesStatus : MutableLiveData<Resource<List<Lobby>>> = MutableLiveData()
     val lobbiesStatus : LiveData<Resource<List<Lobby>>> = _lobbiesStatus
-    val games = gameRepository.getGames()
 
     init {
         lobbyRep.getLobbiesLiveData(_lobbiesStatus)

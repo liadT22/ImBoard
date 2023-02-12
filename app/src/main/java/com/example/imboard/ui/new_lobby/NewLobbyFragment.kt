@@ -3,6 +3,7 @@ package com.example.imboard.ui.new_lobby
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,15 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imboard.R
 import com.example.imboard.databinding.FragmentNewLobbyBinding
 import com.example.imboard.model.Game
+import com.example.imboard.model.Lobby
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.repository.FirebaseImpl.LobbyRepositoryFirebase
+import com.example.imboard.ui.all_lobbies.AllLobbyAdapter
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -92,6 +97,13 @@ class NewLobbyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
+        binding.gameRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.gameRecyclerView.adapter = NewLobbyAdapter(object :NewLobbyAdapter.GameListener{
+            override fun onGameClicked(game: Game) {
+                binding.gameNameNewLobby.editText?.text = Editable.Factory.getInstance().newEditable(game.name)
+            }
+        })
+
         viewModel.lobbiesStatus.observe(viewLifecycleOwner){
             when(it.status){
                 is Loading ->{
@@ -118,6 +130,21 @@ class NewLobbyFragment : Fragment() {
                     binding.newLobbyProgressBar.isVisible = false
                     Snackbar.make(binding.root, "Item Added!", Snackbar.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
+                }
+                is Error ->{
+                    binding.newLobbyProgressBar.isVisible = false
+                    Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        viewModel.games.observe(viewLifecycleOwner){
+            when(it.status){
+                is Loading -> binding.newLobbyProgressBar.isVisible = true
+                is Success ->{
+                    if(!it.status.data.isNullOrEmpty()){
+                        binding.newLobbyProgressBar.isVisible = false
+                        (binding.gameRecyclerView.adapter as NewLobbyAdapter).setGames(ArrayList(it.status.data))
+                    }
                 }
                 is Error ->{
                     binding.newLobbyProgressBar.isVisible = false
