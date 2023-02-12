@@ -12,6 +12,7 @@ interface AuthRepository {
         userName: String,
         userEmail: String,
         userLoginPassword: String,
+        imageUri: Uri
     ) : Resource<User>
     suspend fun addLobby(userID:String, lobbies: ArrayList<Lobby>):Resource<Void>
     fun logout()
