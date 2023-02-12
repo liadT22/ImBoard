@@ -54,7 +54,7 @@ class NewLobbyFragment : Fragment() {
         binding.dateBtn.setOnClickListener{
             val c = Calendar.getInstance()
             val listener = DatePickerDialog.OnDateSetListener{view, year, month, dayOfMonth ->
-                binding.dateBtn.text = "Date : $dayOfMonth/$month/$year"
+                binding.dateTxt.text = "Date : $dayOfMonth/$month/$year"
                 lobbyYear=year
                 lobbyMonth=month
                 lobbyDay=dayOfMonth
@@ -64,10 +64,10 @@ class NewLobbyFragment : Fragment() {
             dpd.datePicker.minDate = System.currentTimeMillis()
             dpd.show()
         }
-        binding.TimeBtn.setOnClickListener{
+        binding.timeBtn.setOnClickListener{
             val t = Calendar.getInstance()
             val listener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                binding.TimeBtn.text = "Time: ${hourOfDay.toString().padStart(2,'0')}:${minute.toString().padStart(2, '0')}"
+                binding.timeTxt.text = "Time: ${hourOfDay.toString().padStart(2,'0')}:${minute.toString().padStart(2, '0')}"
                 lobbyHour = hourOfDay
                 lobbyMin = minute
             }
@@ -81,6 +81,14 @@ class NewLobbyFragment : Fragment() {
             viewModel.addLobby(binding.lobbyNameNewLbby.text.toString(),binding.locationNewLobby.text.toString()
             ,game, date ,time ,binding.checkboxHaveGame.isChecked)
         }
+        binding.checkboxHaveGame.setOnClickListener {
+            if(binding.checkboxHaveGame.isChecked)
+                binding.newLobbyHaveGame.setImageResource(R.drawable.have_game)
+            else
+                binding.newLobbyHaveGame.setImageResource(R.drawable.dont_have)
+
+        }
+
         return binding.root
     }
 
