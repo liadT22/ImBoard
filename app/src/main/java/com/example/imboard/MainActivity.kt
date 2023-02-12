@@ -9,7 +9,9 @@ import com.example.imboard.ui.account.AccountFragment
 import com.example.imboard.ui.all_lobbies.SearchFragment
 import com.example.imboard.ui.login.RegisterOrLoginScreenFragment
 import com.example.imboard.ui.new_lobby.NewLobbyFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Communicator {
     lateinit var binding: ActivityMainBinding
 

@@ -15,17 +15,17 @@ import com.example.imboard.ui.all_lobbies.SearchFragment
 import com.example.imboard.repository.FirebaseImpl.AuthRepositoryFirebase
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.myapplication.util.Resource
 import il.co.syntax.myapplication.util.Error
 import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Success
 
+@AndroidEntryPoint
 class RegisterOrLoginScreenFragment : Fragment() {
 
     private var binding : FragmentRegisterOrLoginScreenBinding by autoCleared()
-    private val viewModel: LoginViewModel by viewModels{
-        LoginViewModel.LoginViewModelFactory(AuthRepositoryFirebase())
-    }
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

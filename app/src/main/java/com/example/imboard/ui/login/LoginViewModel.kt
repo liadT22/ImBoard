@@ -3,10 +3,13 @@ package com.example.imboard.ui.login
 import androidx.lifecycle.*
 import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import il.co.syntax.myapplication.util.Resource
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(private val authRep : AuthRepository) :ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val authRep : AuthRepository) :ViewModel() {
     private val _userSignInStatus = MutableLiveData<Resource<User>>()
     val userSignInStatus: LiveData<Resource<User>> = _userSignInStatus
 
@@ -27,12 +30,6 @@ class LoginViewModel(private val authRep : AuthRepository) :ViewModel() {
                 val loginResult = authRep.login(userEmail,userPassword)
                 _userSignInStatus.postValue(loginResult)
             }
-        }
-    }
-
-    class LoginViewModelFactory(val authRep: AuthRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return LoginViewModel(authRep) as T
         }
     }
 }

@@ -9,12 +9,15 @@ import com.example.imboard.model.User
 import com.example.imboard.repository.FirebaseImpl.AuthRepository
 import com.example.imboard.repository.FirebaseImpl.FireBaseStorageRepository
 import com.google.firebase.storage.FirebaseStorage
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import il.co.syntax.myapplication.util.Resource
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-
-class RegisterViewModel(private val repository: AuthRepository, private val firebaseStorage : FireBaseStorageRepository): ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(private val repository: AuthRepository, private val firebaseStorage : FireBaseStorageRepository): ViewModel() {
 
     private val _userRegistrationStatus = MutableLiveData<Resource<User>>()
     val userRegistrationStatus: LiveData<Resource<User>> = _userRegistrationStatus
@@ -39,14 +42,6 @@ class RegisterViewModel(private val repository: AuthRepository, private val fire
             val registrationResult = repository.createUser(userName, userEmail, userPass)
             firebaseStorage.setUserPhoto(registrationResult.status.data!!.id,imageUri)
             _userRegistrationStatus.postValue(registrationResult)
-        }
-    }
-
-
-
-    class RegisterViewModelFactory(private val repository: AuthRepository, private val firebaseStorage : FireBaseStorageRepository) : ViewModelProvider.NewInstanceFactory(){
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return RegisterViewModel(repository, firebaseStorage) as T
         }
     }
 }

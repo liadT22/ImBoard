@@ -23,13 +23,14 @@ import com.example.imboard.repository.FirebaseImpl.FireBaseStorageRepository
 import com.example.imboard.util.autoCleared
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.storage.FirebaseStorage
+import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.myapplication.util.Loading
 import il.co.syntax.myapplication.util.Resource
 import il.co.syntax.myapplication.util.Success
 import java.util.*
 import il.co.syntax.myapplication.util.Error
 
-
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
     private val storage = FirebaseStorage.getInstance()
@@ -37,6 +38,7 @@ class RegisterFragment : Fragment() {
     private val fileReference = storageReference.child("images/" + UUID.randomUUID().toString())
 
     private var binding: FragmentRegisterScreenBinding by autoCleared()
+    private val viewModel: RegisterViewModel by viewModels()
     private lateinit var imageUri: Uri
     private val pickImageResultLauncher : ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()){
@@ -48,9 +50,6 @@ class RegisterFragment : Fragment() {
 
         }
 
-    private val viewModel: RegisterViewModel by viewModels(){
-        RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase(), FireBaseStorageRepository())
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
