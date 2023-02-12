@@ -60,7 +60,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
 
-
+    //google map
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     //Room
     def room_version = "2.4.2"
