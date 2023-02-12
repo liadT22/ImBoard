@@ -11,5 +11,6 @@ import java.net.URI
 data class User(val name:String ="",
                 val email:String="",
                 val id: String = "",
+                val uri: String = "",
                 val games: ArrayList<Game>? = null,
                 val lobbies: ArrayList<Lobby>? = ArrayList()) : Parcelable

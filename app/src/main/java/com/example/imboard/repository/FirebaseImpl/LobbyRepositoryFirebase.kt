@@ -54,6 +54,13 @@ class LobbyRepositoryFirebase : LobbiesRepository{
         }
     }
 
+    override suspend fun setLobbyPlayers(lobbyId: String, lobbyPlayers : ArrayList<User>) = withContext(Dispatchers.IO){
+        safeCall {
+            val result = lobbyRef.document(lobbyId).update("lobby_players", lobbyPlayers).await()
+            Resource.success(result)
+        }
+    }
+
     override suspend fun getAllLobbies() = withContext(Dispatchers.IO){
         safeCall {
             val result = lobbyRef.get().await()

@@ -11,6 +11,7 @@ interface LobbiesRepository {
     suspend fun deleteLobby(lobbyId: String) : Resource<Void>
     suspend fun AddNewPlayer(lobbyId: String, lobbyPlayers: ArrayList<User>): Resource<Void>
     suspend fun getLobby(id:String): Resource<Lobby>
+    suspend fun setLobbyPlayers(lobbyId: String, lobbyPlayers : ArrayList<User>) : Resource<Void>
     suspend fun getAllLobbies(): Resource<List<Lobby>>
     fun getLobbiesLiveData(data :MutableLiveData<Resource<List<Lobby>>>)
 }

@@ -39,7 +39,7 @@ class RegisterViewModel @Inject constructor(private val repository: AuthReposito
         }
         _userRegistrationStatus.value = Resource.loading()
         viewModelScope.launch {
-            val registrationResult = repository.createUser(userName, userEmail, userPass)
+            val registrationResult = repository.createUser(userName, userEmail, userPass, imageUri)
             firebaseStorage.setUserPhoto(registrationResult.status.data!!.id,imageUri)
             _userRegistrationStatus.postValue(registrationResult)
         }

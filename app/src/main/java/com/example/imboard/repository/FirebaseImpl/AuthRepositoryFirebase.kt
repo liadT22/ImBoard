@@ -50,6 +50,7 @@ class AuthRepositoryFirebase : AuthRepository {
         userName: String,
         userEmail: String,
         userLoginPassword: String,
+        imageUri: Uri
     ): Resource<User> {
         return withContext(Dispatchers.IO){
             safeCall {
@@ -57,7 +58,7 @@ class AuthRepositoryFirebase : AuthRepository {
                     firebaseAuth.createUserWithEmailAndPassword(userEmail, userLoginPassword)
                     .await()
                 val userId = registrationResult.user?.uid!!
-                val newUser = User(userName, userEmail, userId)
+                val newUser = User(userName, userEmail, userId, imageUri.toString())
                 val check = userRef.document(userId).set(newUser).await()
                 Resource.success(newUser)
             }
