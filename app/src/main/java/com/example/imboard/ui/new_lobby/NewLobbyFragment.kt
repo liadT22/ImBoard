@@ -37,6 +37,7 @@ import il.co.syntax.myapplication.util.Error
 class NewLobbyFragment : Fragment() {
     private var binding : FragmentNewLobbyBinding by autoCleared()
     private val viewModel : NewLobbyViewModel by viewModels()
+    lateinit var Clickedgame : Game
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,11 +84,10 @@ class NewLobbyFragment : Fragment() {
             tpd.show()
         }
         binding.createButtonNewLobby.setOnClickListener {
-            val game = Game()
             val date = "$lobbyMonth/$lobbyDay/$lobbyYear"
             val time = lobbyHour.toString().padStart(2, '0') +':' + lobbyMin.toString().padStart(2, '0')
             viewModel.addLobby(binding.lobbyNameNewLbby.text.toString(),binding.locationNewLobby.text.toString()
-            ,game, date ,time ,binding.checkboxHaveGame.isChecked)
+            ,Clickedgame, date ,time ,binding.checkboxHaveGame.isChecked)
             //TODO add nave controller here to search
             findNavController().navigate(R.id.action_newLobbyFragment_to_searchFragment)
         }
@@ -101,6 +101,7 @@ class NewLobbyFragment : Fragment() {
         binding.gameRecyclerView.adapter = NewLobbyAdapter(object :NewLobbyAdapter.GameListener{
             override fun onGameClicked(game: Game) {
                 binding.gameNameNewLobby.editText?.text = Editable.Factory.getInstance().newEditable(game.name)
+                Clickedgame = game
             }
         })
 

@@ -37,12 +37,12 @@ class AllLobbyAdapter(val callBack: LobbyListener) :
 
         fun bind(lobby: Lobby) {
             binding.lobbyName.text = lobby.lobby_name
-            binding.lobbyPlayersCount.text = "Players: ${lobby.game.min_players} - ${lobby.game.max_players}"
+            binding.lobbyPlayersCount.text = "Players: ${lobby.lobby_players.size}/${lobby.game.max_players}"
             binding.lobbyLocation.text = lobby.lobby_location
 
-            binding.gameName.text = "lobby.game.name"
+            binding.gameName.text = lobby.game.name
             //TODO: change into real photo
-            Glide.with(binding.root).load(R.drawable.have_game).circleCrop().into(binding.lobbyGameImage)
+            Glide.with(binding.root).load(lobby.game.image_url).circleCrop().into(binding.lobbyGameImage)
             binding.lobbyDate.text = lobby.lobby_date
             binding.lobbyHaveGame.setImageResource(haveGame(lobby))
 

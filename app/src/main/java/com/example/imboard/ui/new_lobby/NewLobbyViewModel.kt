@@ -23,10 +23,10 @@ class NewLobbyViewModel @Inject constructor(private val authRep: AuthRepository,
 
     val games = gameRepository.getGames()
 
-    fun addLobby(lobbyName: String, location: String, game: Game, date: String, time:String, haveTheGame: Boolean){
+    fun addLobby(lobbyName: String, location: String, game: Game?, date: String, time:String, haveTheGame: Boolean){
         viewModelScope.launch {
-            if(lobbyName.isEmpty() || location.isEmpty() || game == null){
-                _addLobbyStatus.postValue(Resource.error("Empty name, or location"))
+            if(lobbyName.isEmpty() || location.isEmpty() || game == null || date.isEmpty() ||time.isEmpty()){
+                _addLobbyStatus.postValue(Resource.error("Please fill the entire form"))
             }
             else{
                 val lobbyPlayers : ArrayList<User> = ArrayList()
